@@ -702,247 +702,6 @@
         "url": "https://github.com/nipy/nipype/blob/master/nipype/interfaces/fsl/preprocess.py"
     },
     {
-        "tool-version": "undefined",
-        "name": "qeeg",
-        "author": "Neuroinformatics Collaboratory",
-        "descriptor-url": "https://github.com/big-data-lab-team/cbrain-plugins-eeg/blob/master/cbrain_task_descriptors/qeeg.json",
-        "command-line": "qeegt.sh --input [input_directory]/[basename] --state [state] --lwin [lwin] --fmin [fmin] --freqres [freqres] --fmax [fmax] --wbands [wbands] [brain] [pg_apply] [bbsm] [nbsm] [spectra] [bbsmz] [nbsmz] [ssz] [corr] [cohe] [phdiff] [fcorr] [storexyz] --output \"results\" ",
-        "inputs": [
-            {
-                "description": "Directory containing the files to process.",
-                "value-key": "[input_directory]",
-                "optional": false,
-                "list": false,
-                "type": "File",
-                "id": "input_directory",
-                "name": "Input directory"
-            },
-            {
-                "description": "Basename of the file to process in the input directory.",
-                "value-key": "[basename]",
-                "optional": false,
-                "list": false,
-                "type": "String",
-                "id": "basename",
-                "name": "Basename"
-            },
-            {
-                "description": "Example: \"A\". EEG state to be analyzed. The program will look for existing analysis windows labelled as state 'A' (Eyes Closed).",
-                "default-value": "A",
-                "value-key": "[state]",
-                "optional": false,
-                "list": false,
-                "type": "String",
-                "id": "state",
-                "name": "State"
-            },
-            {
-                "description": "Length of the analysis window in seconds.",
-                "default-value": 2.56,
-                "value-key": "[lwin]",
-                "optional": false,
-                "list": false,
-                "minimum": 0,
-                "type": "Number",
-                "id": "lwin",
-                "name": "Window length"
-            },
-            {
-                "description": "Low cut frequency for analysis. Example: \"0.390625\".",
-                "default-value": 0.390625,
-                "value-key": "[fmin]",
-                "optional": false,
-                "list": false,
-                "minimum": 0,
-                "type": "Number",
-                "id": "fmin",
-                "name": "fmin"
-            },
-            {
-                "description": "Fequency resolution for analysis. Example: \"0.390625\". The analysis will use a frequency band like this: fmin:freqres:fmax. The program will compare this interval with the interval that is obtained for the real frequency parameters of the signal and will match both of them.",
-                "default-value": 0.390625,
-                "value-key": "[freqres]",
-                "optional": false,
-                "list": false,
-                "type": "Number",
-                "id": "freqres",
-                "name": "freqres"
-            },
-            {
-                "description": "High cut frequency for analysis. Example: \"19.11\".",
-                "default-value": 19.11,
-                "value-key": "[fmax]",
-                "optional": false,
-                "list": false,
-                "type": "Number",
-                "id": "fmax",
-                "name": "fmax"
-            },
-            {
-                "description": "Broad Bands definition. A string representing a 5x2 matrix of real numbers, where rows are separated by ';' and columns by spaces. Example: \"1.56 3.51; 3.9 7.41; 7.8 12.48; 12.87 19.11; 1.56 19.11\".",
-                "default-value": "1.56 3.51; 3.9 7.41; 7.8 12.48; 12.87 19.11; 1.56 19.11",
-                "value-key": "[wbands]",
-                "optional": false,
-                "list": false,
-                "type": "String",
-                "id": "wbands",
-                "name": "wbands"
-            },
-            {
-                "command-line-flag": "--brain",
-                "description": "Restricts the inverse solution to only gray matter. Otherwise, deep structure (basal ganglia) will be included in the grid.",
-                "default-value": true,
-                "value-key": "[brain]",
-                "optional": true,
-                "type": "Flag",
-                "id": "brain",
-                "name": "Brain"
-            },
-            {
-                "command-line-flag": "--pg_apply",
-                "description": "Substracts the Global Scale Factor (Geometric Power) from the EEG signal.",
-                "default-value": true,
-                "value-key": "[pg_apply]",
-                "optional": true,
-                "type": "Flag",
-                "id": "pg_apply",
-                "name": "PG Apply"
-            },
-            {
-                "command-line-flag": "--bbsm",
-                "description": "Calculates the Broad Band Spectral Model.",
-                "default-value": true,
-                "value-key": "[bbsm]",
-                "optional": true,
-                "type": "Flag",
-                "id": "bbsm",
-                "name": "Broad Band Spectral Model"
-            },
-            {
-                "command-line-flag": "--nbsm",
-                "description": "Calculates the Narrow Band Spectral Model.",
-                "default-value": true,
-                "value-key": "[nbsm]",
-                "optional": true,
-                "type": "Flag",
-                "id": "nbsm",
-                "name": "Narrow Band Spectral Model"
-            },
-            {
-                "command-line-flag": "--spectra",
-                "description": "Calculates the Spectra at the EEG sources.",
-                "default-value": true,
-                "value-key": "[spectra]",
-                "optional": true,
-                "type": "Flag",
-                "id": "spectra",
-                "name": "Spectra"
-            },
-            {
-                "command-line-flag": "--bbsmz",
-                "description": "Calculates the Broad Band Spectral Model Z values.",
-                "default-value": true,
-                "value-key": "[bbsmz]",
-                "optional": true,
-                "type": "Flag",
-                "id": "bbsmz",
-                "name": "Broad Band Spectral Model Z values"
-            },
-            {
-                "command-line-flag": "--nbsmz",
-                "description": "Calculates the Narrow Band Spectral Model Z values.",
-                "default-value": true,
-                "value-key": "[nbsmz]",
-                "optional": true,
-                "type": "Flag",
-                "id": "nbsmz",
-                "name": "Narrow Band Spectral Model Z values"
-            },
-            {
-                "command-line-flag": "--ssz",
-                "description": "Calculates the Sources Spectra Z values.",
-                "default-value": true,
-                "value-key": "[ssz]",
-                "optional": true,
-                "type": "Flag",
-                "id": "ssz",
-                "name": "Source Spectra Z"
-            },
-            {
-                "command-line-flag": "--corr",
-                "description": "Calculates the correlations matrix bewteen all pairs of channels for each epoch.",
-                "default-value": true,
-                "value-key": "[corr]",
-                "optional": true,
-                "type": "Flag",
-                "id": "corr",
-                "name": "Correlations matrix"
-            },
-            {
-                "command-line-flag": "--cohe",
-                "description": "Calculates the coherence matrix bewteen all pairs of channels for each frequency.",
-                "default-value": true,
-                "value-key": "[cohe]",
-                "optional": true,
-                "type": "Flag",
-                "id": "cohe",
-                "name": "Coherence matrix"
-            },
-            {
-                "command-line-flag": "--phdiff",
-                "description": "Calculates the phase difference matrix bewteen all pairs of channels for each frequency.",
-                "default-value": true,
-                "value-key": "[phdiff]",
-                "optional": true,
-                "type": "Flag",
-                "id": "phdiff",
-                "name": "Phase difference matrix"
-            },
-            {
-                "command-line-flag": "--fcorr",
-                "description": "Calculates  the frequency domain correlations bewteen all pairs of channels for each frequency and each epoch.",
-                "default-value": true,
-                "value-key": "[fcorr]",
-                "optional": true,
-                "type": "Flag",
-                "id": "fcorr",
-                "name": "Frequency domain correlations"
-            },
-            {
-                "command-line-flag": "--storexyz",
-                "description": "Stores the XYZ components of the solutions at the sources.",
-                "default-value": true,
-                "value-key": "[storexyz]",
-                "optional": true,
-                "type": "Flag",
-                "id": "storexyz",
-                "name": "XYZ components"
-            }
-        ],
-        "container-image": {
-            "image": "mcin/qeeg:latest",
-            "type": "docker"
-        },
-        "schema-version": "0.5",
-        "output-files": [
-            {
-                "description": "A folder containing the output files.",
-                "list": false,
-                "id": "folder_out",
-                "optional": false,
-                "path-template": "results",
-                "name": "Output folder"
-            }
-        ],
-        "description": "qeeg application",
-        "tags": {
-            "domain": [
-                "neuroinformatics",
-                "eeg"
-            ]
-        }
-    },
-    {
         "tool-version": "1.0.0",
         "name": "fsl_bet",
         "author": "Oxford Centre for Functional MRI of the Brain (FMRIB)",
@@ -1327,6 +1086,247 @@
             }
         ],
         "description": "Automated brain extraction tool for FSL"
+    },
+    {
+        "tool-version": "undefined",
+        "name": "qeeg",
+        "author": "Neuroinformatics Collaboratory",
+        "descriptor-url": "https://github.com/big-data-lab-team/cbrain-plugins-eeg/blob/master/cbrain_task_descriptors/qeeg.json",
+        "command-line": "qeegt.sh --input [input_directory]/[basename] --state [state] --lwin [lwin] --fmin [fmin] --freqres [freqres] --fmax [fmax] --wbands [wbands] [brain] [pg_apply] [bbsm] [nbsm] [spectra] [bbsmz] [nbsmz] [ssz] [corr] [cohe] [phdiff] [fcorr] [storexyz] --output \"results\" ",
+        "inputs": [
+            {
+                "description": "Directory containing the files to process.",
+                "value-key": "[input_directory]",
+                "optional": false,
+                "list": false,
+                "type": "File",
+                "id": "input_directory",
+                "name": "Input directory"
+            },
+            {
+                "description": "Basename of the file to process in the input directory.",
+                "value-key": "[basename]",
+                "optional": false,
+                "list": false,
+                "type": "String",
+                "id": "basename",
+                "name": "Basename"
+            },
+            {
+                "description": "Example: \"A\". EEG state to be analyzed. The program will look for existing analysis windows labelled as state 'A' (Eyes Closed).",
+                "default-value": "A",
+                "value-key": "[state]",
+                "optional": false,
+                "list": false,
+                "type": "String",
+                "id": "state",
+                "name": "State"
+            },
+            {
+                "description": "Length of the analysis window in seconds.",
+                "default-value": 2.56,
+                "value-key": "[lwin]",
+                "optional": false,
+                "list": false,
+                "minimum": 0,
+                "type": "Number",
+                "id": "lwin",
+                "name": "Window length"
+            },
+            {
+                "description": "Low cut frequency for analysis. Example: \"0.390625\".",
+                "default-value": 0.390625,
+                "value-key": "[fmin]",
+                "optional": false,
+                "list": false,
+                "minimum": 0,
+                "type": "Number",
+                "id": "fmin",
+                "name": "fmin"
+            },
+            {
+                "description": "Fequency resolution for analysis. Example: \"0.390625\". The analysis will use a frequency band like this: fmin:freqres:fmax. The program will compare this interval with the interval that is obtained for the real frequency parameters of the signal and will match both of them.",
+                "default-value": 0.390625,
+                "value-key": "[freqres]",
+                "optional": false,
+                "list": false,
+                "type": "Number",
+                "id": "freqres",
+                "name": "freqres"
+            },
+            {
+                "description": "High cut frequency for analysis. Example: \"19.11\".",
+                "default-value": 19.11,
+                "value-key": "[fmax]",
+                "optional": false,
+                "list": false,
+                "type": "Number",
+                "id": "fmax",
+                "name": "fmax"
+            },
+            {
+                "description": "Broad Bands definition. A string representing a 5x2 matrix of real numbers, where rows are separated by ';' and columns by spaces. Example: \"1.56 3.51; 3.9 7.41; 7.8 12.48; 12.87 19.11; 1.56 19.11\".",
+                "default-value": "1.56 3.51; 3.9 7.41; 7.8 12.48; 12.87 19.11; 1.56 19.11",
+                "value-key": "[wbands]",
+                "optional": false,
+                "list": false,
+                "type": "String",
+                "id": "wbands",
+                "name": "wbands"
+            },
+            {
+                "command-line-flag": "--brain",
+                "description": "Restricts the inverse solution to only gray matter. Otherwise, deep structure (basal ganglia) will be included in the grid.",
+                "default-value": true,
+                "value-key": "[brain]",
+                "optional": true,
+                "type": "Flag",
+                "id": "brain",
+                "name": "Brain"
+            },
+            {
+                "command-line-flag": "--pg_apply",
+                "description": "Substracts the Global Scale Factor (Geometric Power) from the EEG signal.",
+                "default-value": true,
+                "value-key": "[pg_apply]",
+                "optional": true,
+                "type": "Flag",
+                "id": "pg_apply",
+                "name": "PG Apply"
+            },
+            {
+                "command-line-flag": "--bbsm",
+                "description": "Calculates the Broad Band Spectral Model.",
+                "default-value": true,
+                "value-key": "[bbsm]",
+                "optional": true,
+                "type": "Flag",
+                "id": "bbsm",
+                "name": "Broad Band Spectral Model"
+            },
+            {
+                "command-line-flag": "--nbsm",
+                "description": "Calculates the Narrow Band Spectral Model.",
+                "default-value": true,
+                "value-key": "[nbsm]",
+                "optional": true,
+                "type": "Flag",
+                "id": "nbsm",
+                "name": "Narrow Band Spectral Model"
+            },
+            {
+                "command-line-flag": "--spectra",
+                "description": "Calculates the Spectra at the EEG sources.",
+                "default-value": true,
+                "value-key": "[spectra]",
+                "optional": true,
+                "type": "Flag",
+                "id": "spectra",
+                "name": "Spectra"
+            },
+            {
+                "command-line-flag": "--bbsmz",
+                "description": "Calculates the Broad Band Spectral Model Z values.",
+                "default-value": true,
+                "value-key": "[bbsmz]",
+                "optional": true,
+                "type": "Flag",
+                "id": "bbsmz",
+                "name": "Broad Band Spectral Model Z values"
+            },
+            {
+                "command-line-flag": "--nbsmz",
+                "description": "Calculates the Narrow Band Spectral Model Z values.",
+                "default-value": true,
+                "value-key": "[nbsmz]",
+                "optional": true,
+                "type": "Flag",
+                "id": "nbsmz",
+                "name": "Narrow Band Spectral Model Z values"
+            },
+            {
+                "command-line-flag": "--ssz",
+                "description": "Calculates the Sources Spectra Z values.",
+                "default-value": true,
+                "value-key": "[ssz]",
+                "optional": true,
+                "type": "Flag",
+                "id": "ssz",
+                "name": "Source Spectra Z"
+            },
+            {
+                "command-line-flag": "--corr",
+                "description": "Calculates the correlations matrix bewteen all pairs of channels for each epoch.",
+                "default-value": true,
+                "value-key": "[corr]",
+                "optional": true,
+                "type": "Flag",
+                "id": "corr",
+                "name": "Correlations matrix"
+            },
+            {
+                "command-line-flag": "--cohe",
+                "description": "Calculates the coherence matrix bewteen all pairs of channels for each frequency.",
+                "default-value": true,
+                "value-key": "[cohe]",
+                "optional": true,
+                "type": "Flag",
+                "id": "cohe",
+                "name": "Coherence matrix"
+            },
+            {
+                "command-line-flag": "--phdiff",
+                "description": "Calculates the phase difference matrix bewteen all pairs of channels for each frequency.",
+                "default-value": true,
+                "value-key": "[phdiff]",
+                "optional": true,
+                "type": "Flag",
+                "id": "phdiff",
+                "name": "Phase difference matrix"
+            },
+            {
+                "command-line-flag": "--fcorr",
+                "description": "Calculates  the frequency domain correlations bewteen all pairs of channels for each frequency and each epoch.",
+                "default-value": true,
+                "value-key": "[fcorr]",
+                "optional": true,
+                "type": "Flag",
+                "id": "fcorr",
+                "name": "Frequency domain correlations"
+            },
+            {
+                "command-line-flag": "--storexyz",
+                "description": "Stores the XYZ components of the solutions at the sources.",
+                "default-value": true,
+                "value-key": "[storexyz]",
+                "optional": true,
+                "type": "Flag",
+                "id": "storexyz",
+                "name": "XYZ components"
+            }
+        ],
+        "container-image": {
+            "image": "mcin/qeeg:latest",
+            "type": "docker"
+        },
+        "schema-version": "0.5",
+        "output-files": [
+            {
+                "description": "A folder containing the output files.",
+                "list": false,
+                "id": "folder_out",
+                "optional": false,
+                "path-template": "results",
+                "name": "Output folder"
+            }
+        ],
+        "description": "qeeg application",
+        "tags": {
+            "domain": [
+                "neuroinformatics",
+                "eeg"
+            ]
+        }
     },
     {
         "author": "chrisfilo and others",
@@ -3129,6 +3129,65 @@
         }
     },
     {
+        "tool-version": "3.19.0-centos7",
+        "name": "FreeSurferPipelineBatch-CentOS7",
+        "author": "Washington University",
+        "descriptor-url": "https://github.com/big-data-lab-team/cbrain-plugins-hcp/blob/master/cbrain_task_descriptors/freesurfer-exec-centos7-freesurferbuild-centos4.json",
+        "command-line": "freesurfer-command-line-script.sh [SUBJECT_FOLDER] [NAME] [LICENSE]",
+        "inputs": [
+            {
+                "description": "HCP subject folder, downloaded from http://www.humanconnectome.org/documentation/S500.",
+                "value-key": "[SUBJECT_FOLDER]",
+                "type": "File",
+                "optional": false,
+                "id": "subject_folder",
+                "name": "HCP subject folder"
+            },
+            {
+                "description": "Use this parameter to give a name to the execution. Example: \"Exec-CentOS7-FreeSurferbuild-CentOS4\". The results will be written in a folder named [SUBJECT]-[EXECUTION-NAME] (a unique identifier will be appended in case a file with the same name already exists).",
+                "default-value": "Exec-CentOS-[X]-FreeSurferbuild-CentOS-[Y]",
+                "value-key": "[NAME]",
+                "optional": false,
+                "type": "String",
+                "id": "execution_name",
+                "name": "Execution name"
+            },
+            {
+                "description": "Use this parameter to add the content of the license file in the freesurfer directory",
+                "default-value": "",
+                "value-key": "[LICENSE]",
+                "optional": false,
+                "type": "File",
+                "id": "freesurfer_license",
+                "name": "FreeSurfer License"
+            }
+        ],
+        "container-image": {
+            "image": "bigdatalabteam/hcp-prefreesurfer:exec-centos7.freesurferbuild-centos4-latest",
+            "type": "docker"
+        },
+        "schema-version": "0.5",
+        "output-files": [
+            {
+                "path-template": "[SUBJECT_FOLDER]-[NAME]",
+                "description": "This directory will contain 3 directories (T1w, T2w and MNINonLinear), a monitoring file (monitor.txt) and the input data.",
+                "optional": false,
+                "id": "results",
+                "name": "Results"
+            }
+        ],
+        "suggested-resources": {
+            "walltime-estimate": 25200
+        },
+        "description": "FreeSurferPipelineBatch HCP pipeline",
+        "tags": {
+            "domain": [
+                "neuroinformatics",
+                "mri"
+            ]
+        }
+    },
+    {
         "name": "DTIFit",
         "command-line": "dtifit [DWI] [BASE_NAME] [MASK] [BVECS] [BVALS] [CNI] [GRADNONLIN] [LITTLE_BIT] [MAX_X] [MAX_Y] [MAX_Z] [MIN_X] [MIN_Y] [MIN_Z] [SAVE_TENSOR] [SSE]",
         "author": "Nipype (interface), Oxford Centre for Functional MRI of the Brain (FMRIB) (tool)",
@@ -3389,65 +3448,6 @@
             "source": "nipype-interface"
         },
         "url": "https://github.com/nipy/nipype/blob/master/nipype/interfaces/fsl/dti.py"
-    },
-    {
-        "tool-version": "3.19.0-centos7",
-        "name": "FreeSurferPipelineBatch-CentOS7",
-        "author": "Washington University",
-        "descriptor-url": "https://github.com/big-data-lab-team/cbrain-plugins-hcp/blob/master/cbrain_task_descriptors/freesurfer-exec-centos7-freesurferbuild-centos4.json",
-        "command-line": "freesurfer-command-line-script.sh [SUBJECT_FOLDER] [NAME] [LICENSE]",
-        "inputs": [
-            {
-                "description": "HCP subject folder, downloaded from http://www.humanconnectome.org/documentation/S500.",
-                "value-key": "[SUBJECT_FOLDER]",
-                "type": "File",
-                "optional": false,
-                "id": "subject_folder",
-                "name": "HCP subject folder"
-            },
-            {
-                "description": "Use this parameter to give a name to the execution. Example: \"Exec-CentOS7-FreeSurferbuild-CentOS4\". The results will be written in a folder named [SUBJECT]-[EXECUTION-NAME] (a unique identifier will be appended in case a file with the same name already exists).",
-                "default-value": "Exec-CentOS-[X]-FreeSurferbuild-CentOS-[Y]",
-                "value-key": "[NAME]",
-                "optional": false,
-                "type": "String",
-                "id": "execution_name",
-                "name": "Execution name"
-            },
-            {
-                "description": "Use this parameter to add the content of the license file in the freesurfer directory",
-                "default-value": "",
-                "value-key": "[LICENSE]",
-                "optional": false,
-                "type": "File",
-                "id": "freesurfer_license",
-                "name": "FreeSurfer License"
-            }
-        ],
-        "container-image": {
-            "image": "bigdatalabteam/hcp-prefreesurfer:exec-centos7.freesurferbuild-centos4-latest",
-            "type": "docker"
-        },
-        "schema-version": "0.5",
-        "output-files": [
-            {
-                "path-template": "[SUBJECT_FOLDER]-[NAME]",
-                "description": "This directory will contain 3 directories (T1w, T2w and MNINonLinear), a monitoring file (monitor.txt) and the input data.",
-                "optional": false,
-                "id": "results",
-                "name": "Results"
-            }
-        ],
-        "suggested-resources": {
-            "walltime-estimate": 25200
-        },
-        "description": "FreeSurferPipelineBatch HCP pipeline",
-        "tags": {
-            "domain": [
-                "neuroinformatics",
-                "mri"
-            ]
-        }
     },
     {
         "author": "Plodrack lab",
@@ -4375,79 +4375,6 @@
         "description": "FIRST is a model-based segmentation and registration tool, based on a Bayesian model of shape and appearance for subcortical structures."
     },
     {
-        "author": "Greg Kiar",
-        "command-line": "python3 /opt/mask2boundary.py [MASK] [OUTPUT] [WIDTH] [BOUTIQUES]",
-        "container-image": {
-            "image": "gkiar/mask2boundary:v0.1.0",
-            "index": "index.docker.io",
-            "type": "docker"
-        },
-        "description": "Transforms a binary mask of a niftii image (such as a brain or white matter mask) into a boundary mask. This tool was originally developed to transform a white matter mask into a mask of seed locations for performing tractography in diffusion images.",
-        "inputs": [
-            {
-                "description": "Nifti image containing a binary mask.",
-                "id": "mask",
-                "name": "mask",
-                "optional": false,
-                "type": "String",
-                "value-key": "[MASK]"
-            },
-            {
-                "description": "Path for output Nifti image containing the mask boundary.",
-                "id": "output",
-                "name": "output",
-                "optional": false,
-                "type": "String",
-                "value-key": "[OUTPUT]"
-            },
-            {
-                "command-line-flag": "--width",
-                "default-value": 3,
-                "description": "Width of the boundary to be stored.",
-                "id": "width",
-                "integer": true,
-                "minimum": 1,
-                "name": "width",
-                "optional": true,
-                "type": "Number",
-                "value-key": "[WIDTH]"
-            },
-            {
-                "command-line-flag": "--boutiques",
-                "description": "Toggles creation of a Boutiques descriptor and invocation from the tool and inputs.",
-                "id": "boutiques",
-                "name": "boutiques",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[BOUTIQUES]"
-            }
-        ],
-        "name": "mask2boundary",
-        "output-files": [
-            {
-                "path-template": "[OUTPUT]",
-                "optional": false,
-                "id": "mask_boundary",
-                "name": "Boundary Mask"
-            }
-        ],
-        "schema-version": "0.5",
-        "suggested-resources": {
-            "cpu-cores": 1,
-            "ram": 1,
-            "walltime-estimate": 20
-        },
-        "tags": {
-            "domain": [
-                "neuroinformatics",
-                "mri",
-                "nifti",
-                "dmri"
-            ]
-        },
-        "tool-version": "v0.1.0"
-    },
-    {
         "author": "Gilles Mathieu, using GATE application",
         "command-line": "unzip [INDATA]; source [GATERELEASEPATH]/env.sh [GATERELEASEPATH]; [GATERELEASEPATH]/shared_libs/ld-linux-x86-64.so.2 --library-path [GATERELEASEPATH]/root/lib:[GATERELEASEPATH]/shared_libs/ [GATERELEASEPATH]/Gate -a [Source_ID,[ORGANID]][particle,[PARTICLETYPE]][energy,[ENERGY]][nb,[NBPRIMARIES]] [MACFILE] > output.log;  tar czf [RESULTS] ./output output.log",
         "description": "Descriptor for the GATE command with input parameters, used for import in VIP via Boutiques",
@@ -4585,6 +4512,207 @@
                 "mri"
             ]
         }
+    },
+    {
+        "author": "Greg Kiar",
+        "command-line": "python3 /opt/mask2boundary.py [MASK] [OUTPUT] [WIDTH] [BOUTIQUES]",
+        "container-image": {
+            "image": "gkiar/mask2boundary:v0.1.0",
+            "index": "index.docker.io",
+            "type": "docker"
+        },
+        "description": "Transforms a binary mask of a niftii image (such as a brain or white matter mask) into a boundary mask. This tool was originally developed to transform a white matter mask into a mask of seed locations for performing tractography in diffusion images.",
+        "inputs": [
+            {
+                "description": "Nifti image containing a binary mask.",
+                "id": "mask",
+                "name": "mask",
+                "optional": false,
+                "type": "String",
+                "value-key": "[MASK]"
+            },
+            {
+                "description": "Path for output Nifti image containing the mask boundary.",
+                "id": "output",
+                "name": "output",
+                "optional": false,
+                "type": "String",
+                "value-key": "[OUTPUT]"
+            },
+            {
+                "command-line-flag": "--width",
+                "default-value": 3,
+                "description": "Width of the boundary to be stored.",
+                "id": "width",
+                "integer": true,
+                "minimum": 1,
+                "name": "width",
+                "optional": true,
+                "type": "Number",
+                "value-key": "[WIDTH]"
+            },
+            {
+                "command-line-flag": "--boutiques",
+                "description": "Toggles creation of a Boutiques descriptor and invocation from the tool and inputs.",
+                "id": "boutiques",
+                "name": "boutiques",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[BOUTIQUES]"
+            }
+        ],
+        "name": "mask2boundary",
+        "output-files": [
+            {
+                "path-template": "[OUTPUT]",
+                "optional": false,
+                "id": "mask_boundary",
+                "name": "Boundary Mask"
+            }
+        ],
+        "schema-version": "0.5",
+        "suggested-resources": {
+            "cpu-cores": 1,
+            "ram": 1,
+            "walltime-estimate": 20
+        },
+        "tags": {
+            "domain": [
+                "neuroinformatics",
+                "mri",
+                "nifti",
+                "dmri"
+            ]
+        },
+        "tool-version": "v0.1.0"
+    },
+    {
+        "author": "Greg Kiar, using FSL from FMRIB at Oxford",
+        "command-line": "python3 /opt/preprocessing_pipeline.py [BIDS_DIR] [OUTPUT_DIR] [ANALYSIS_LEVEL] [PARTICIPANT_LABEL] [SESSION_LABEL] [VERBOSE] [BOUTIQUES] [GPU] [FSLDIR] [PARCELLATION]",
+        "container-image": {
+            "image": "gkiar/dwipreproc_fsl-5.0.11_minified",
+            "index": "docker.io",
+            "type": "docker"
+        },
+        "description": "Preprocessing pipeline for diffusion MRI data using the FSL software suite.",
+        "inputs": [
+            {
+                "description": "Directory to a BIDS-organized dataset.",
+                "id": "bids_dir",
+                "name": "bids_dir",
+                "optional": false,
+                "type": "String",
+                "value-key": "[BIDS_DIR]"
+            },
+            {
+                "description": "Directory to store the preprocessed derivatives.",
+                "id": "output_dir",
+                "name": "output_dir",
+                "optional": false,
+                "type": "String",
+                "value-key": "[OUTPUT_DIR]"
+            },
+            {
+                "description": "Level of analysis to perform. Options: session",
+                "id": "analysis_level",
+                "name": "analysis_level",
+                "optional": false,
+                "type": "String",
+                "value-choices": [
+                    "session"
+                ],
+                "value-key": "[ANALYSIS_LEVEL]"
+            },
+            {
+                "command-line-flag": "--participant_label",
+                "description": "Label of the participant(s) to process, omitting the 'sub-' portion of the directory name. Supplying none means the entire dataset will be processed.",
+                "id": "participant_label",
+                "name": "participant_label",
+                "optional": true,
+                "type": "String",
+                "value-key": "[PARTICIPANT_LABEL]"
+            },
+            {
+                "command-line-flag": "--session_label",
+                "description": "Label of the session(s) to process, omitting the 'ses-' portion of the directory name. Supplying none means the entire dataset will be processed.",
+                "id": "session_label",
+                "name": "session_label",
+                "optional": true,
+                "type": "String",
+                "value-key": "[SESSION_LABEL]"
+            },
+            {
+                "command-line-flag": "--verbose",
+                "description": "Flag toggling verbose output statements.",
+                "id": "verbose",
+                "name": "verbose",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[VERBOSE]"
+            },
+            {
+                "command-line-flag": "--boutiques",
+                "description": "Flag toggling descriptor creation.",
+                "id": "boutiques",
+                "name": "boutiques",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[BOUTIQUES]"
+            },
+            {
+                "command-line-flag": "--gpu",
+                "description": "Toggles using GPU accelerated eddy.",
+                "id": "gpu",
+                "name": "gpu",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[GPU]"
+            },
+            {
+                "command-line-flag": "--fsldir",
+                "default-value": "/usr/share/fsl/",
+                "description": "Path to local installation of FSL. Defaults to /usr/share/fsl/.",
+                "id": "fsldir",
+                "name": "fsldir",
+                "optional": true,
+                "type": "String",
+                "value-key": "[FSLDIR]"
+            },
+            {
+                "command-line-flag": "--parcellation",
+                "description": "Parcellation/Label volumes which will be transformed into the subject/session DWI space.",
+                "id": "parcellation",
+                "list": true,
+                "name": "parcellation",
+                "optional": true,
+                "type": "String",
+                "value-key": "[PARCELLATION]"
+            }
+        ],
+        "name": "BIDS App - FSL Diffusion Preprocessing",
+        "output-files": [
+            {
+                "description": "Directory to store the preprocessed derivatives.",
+                "id": "output_dir_path",
+                "name": "Output directory",
+                "optional": false,
+                "path-template": "[OUTPUT_DIR]"
+            }
+        ],
+        "schema-version": "0.5",
+        "suggested-resources": {
+            "cpu-cores": 1,
+            "ram": 8,
+            "walltime-estimate": 10800
+        },
+        "tags": {
+            "domain": [
+                "neuroinformatics",
+                "diffusion MRI",
+                "dwi"
+            ]
+        },
+        "tool-version": "5.0.9"
     },
     {
         "tool-version": "5.0.0",
@@ -5473,677 +5601,6 @@
         }
     },
     {
-        "author": "Greg Kiar, using FSL from FMRIB at Oxford",
-        "command-line": "python3 /opt/preprocessing_pipeline.py [BIDS_DIR] [OUTPUT_DIR] [ANALYSIS_LEVEL] [PARTICIPANT_LABEL] [SESSION_LABEL] [VERBOSE] [BOUTIQUES] [GPU] [FSLDIR] [PARCELLATION]",
-        "container-image": {
-            "image": "gkiar/dwipreproc_fsl-5.0.11_minified",
-            "index": "docker.io",
-            "type": "docker"
-        },
-        "description": "Preprocessing pipeline for diffusion MRI data using the FSL software suite.",
-        "inputs": [
-            {
-                "description": "Directory to a BIDS-organized dataset.",
-                "id": "bids_dir",
-                "name": "bids_dir",
-                "optional": false,
-                "type": "String",
-                "value-key": "[BIDS_DIR]"
-            },
-            {
-                "description": "Directory to store the preprocessed derivatives.",
-                "id": "output_dir",
-                "name": "output_dir",
-                "optional": false,
-                "type": "String",
-                "value-key": "[OUTPUT_DIR]"
-            },
-            {
-                "description": "Level of analysis to perform. Options: session",
-                "id": "analysis_level",
-                "name": "analysis_level",
-                "optional": false,
-                "type": "String",
-                "value-choices": [
-                    "session"
-                ],
-                "value-key": "[ANALYSIS_LEVEL]"
-            },
-            {
-                "command-line-flag": "--participant_label",
-                "description": "Label of the participant(s) to process, omitting the 'sub-' portion of the directory name. Supplying none means the entire dataset will be processed.",
-                "id": "participant_label",
-                "name": "participant_label",
-                "optional": true,
-                "type": "String",
-                "value-key": "[PARTICIPANT_LABEL]"
-            },
-            {
-                "command-line-flag": "--session_label",
-                "description": "Label of the session(s) to process, omitting the 'ses-' portion of the directory name. Supplying none means the entire dataset will be processed.",
-                "id": "session_label",
-                "name": "session_label",
-                "optional": true,
-                "type": "String",
-                "value-key": "[SESSION_LABEL]"
-            },
-            {
-                "command-line-flag": "--verbose",
-                "description": "Flag toggling verbose output statements.",
-                "id": "verbose",
-                "name": "verbose",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[VERBOSE]"
-            },
-            {
-                "command-line-flag": "--boutiques",
-                "description": "Flag toggling descriptor creation.",
-                "id": "boutiques",
-                "name": "boutiques",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[BOUTIQUES]"
-            },
-            {
-                "command-line-flag": "--gpu",
-                "description": "Toggles using GPU accelerated eddy.",
-                "id": "gpu",
-                "name": "gpu",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[GPU]"
-            },
-            {
-                "command-line-flag": "--fsldir",
-                "default-value": "/usr/share/fsl/",
-                "description": "Path to local installation of FSL. Defaults to /usr/share/fsl/.",
-                "id": "fsldir",
-                "name": "fsldir",
-                "optional": true,
-                "type": "String",
-                "value-key": "[FSLDIR]"
-            },
-            {
-                "command-line-flag": "--parcellation",
-                "description": "Parcellation/Label volumes which will be transformed into the subject/session DWI space.",
-                "id": "parcellation",
-                "list": true,
-                "name": "parcellation",
-                "optional": true,
-                "type": "String",
-                "value-key": "[PARCELLATION]"
-            }
-        ],
-        "name": "BIDS App - FSL Diffusion Preprocessing",
-        "output-files": [
-            {
-                "description": "Directory to store the preprocessed derivatives.",
-                "id": "output_dir_path",
-                "name": "Output directory",
-                "optional": false,
-                "path-template": "[OUTPUT_DIR]"
-            }
-        ],
-        "schema-version": "0.5",
-        "suggested-resources": {
-            "cpu-cores": 1,
-            "ram": 8,
-            "walltime-estimate": 10800
-        },
-        "tags": {
-            "domain": [
-                "neuroinformatics",
-                "diffusion MRI",
-                "dwi"
-            ]
-        },
-        "tool-version": "5.0.9"
-    },
-    {
-        "author": "Poldrack lab",
-        "command-line": "fmriprep [BIDS_DIR] [OUTPUT_DIR] [ANALYSIS_LEVEL] [PARTICIPANT_LABEL] [TASK_ID] [VERSION] [NTHREADS] [OMP_NTHREADS] [MEM_MB] [LOW_MEM] [USE_PLUGIN] [ANAT_ONLY] [BOILERPLATE] [IGNORE_AROMA_DENOISING_ERRORS] [VERBOSE_COUNT] [DEBUG] [IGNORE] [LONGITUDINAL] [T2S_COREG] [BOLD2T1W_DOF] [OUTPUT_SPACE] [USE_BBR] [TEMPLATE] [OUTPUT_GRID_REFERENCE] [TEMPLATE_RESAMPLING_GRID] [MEDIAL_SURFACE_NAN] [USE_AROMA] [AROMA_MELODIC_DIMENSIONALITY] [SKULL_STRIP_TEMPLATE] [SKULL_STRIP_FIXED_SEED] [FMAP_BSPLINE] [FMAP_NO_DEMEAN] [USE_SYN_SDC] [FORCE_SYN] [FS_LICENSE_FILE] [HIRES] [CIFTI_OUTPUT] [RUN_RECONALL] [WORK_DIR] [RESOURCE_MONITOR] [REPORTS_ONLY] [RUN_UUID] [WRITE_GRAPH] [STOP_ON_FIRST_CRASH] [NOTRACK] [SLOPPY]",
-        "container-image": {
-            "image": "shots47s/bids-fmriprep-1.2.3",
-            "type": "singularity"
-        },
-        "custom": {
-            "cbrain:readonly-input-files": true
-        },
-        "description": "fMRIprep is a functional magneticresonance image pre-processing pipeline that is designed to provide an easily accessible, state-of-the-art interface that is robust to differences in scan acquisition protocols and that requires minimal user input, while providing easily interpretable and comprehensive error and output reporting. https://fmriprep.readthedocs.io",
-        "groups": [
-            {
-                "description": "Paramters used to define memory requirements and multithreading",
-                "id": "memory_and_parallelism",
-                "members": [
-                    "nthreads",
-                    "omp_nthreads",
-                    "mem_mb",
-                    "low_mem"
-                ],
-                "name": "Memory and Parallel Control Parameters"
-            },
-            {
-                "description": "Diagnostic parameters for debugging fMRIprep",
-                "id": "debugging",
-                "members": [
-                    "version",
-                    "verbose_count",
-                    "resource_monitor",
-                    "reports_only",
-                    "run_uuid",
-                    "stop_on_first_crash",
-                    "notrack",
-                    "write_graph",
-                    "sloppy"
-                ],
-                "name": "Debugging Parameters"
-            },
-            {
-                "description": "Parameters that one should use at their own risk.",
-                "id": "experimental",
-                "members": [
-                    "use_syn_sdc",
-                    "force_syn"
-                ],
-                "name": "Experimental Parameters"
-            },
-            {
-                "description": "Parameters that are no longer useful or supported",
-                "id": "deprecated",
-                "members": [
-                    "debug",
-                    "output_grid_reference"
-                ],
-                "name": "Deprecated Parameters"
-            }
-        ],
-        "inputs": [
-            {
-                "description": "the root folder of a BIDS valid dataset (sub-XXXXX folders should be found at the top level in this folder).",
-                "id": "bids_dir",
-                "name": "bids_dir",
-                "optional": false,
-                "type": "File",
-                "value-key": "[BIDS_DIR]"
-            },
-            {
-                "description": "the output path for the outcomes of preprocessing and visual reports",
-                "id": "output_dir",
-                "name": "output_dir",
-                "optional": false,
-                "type": "String",
-                "value-key": "[OUTPUT_DIR]"
-            },
-            {
-                "description": "processing stage to be run, only \"participant\" in the case of FMRIPREP (see BIDS-Apps specification).",
-                "id": "analysis_level",
-                "name": "analysis_level",
-                "optional": false,
-                "type": "String",
-                "value-choices": [
-                    "participant"
-                ],
-                "value-key": "[ANALYSIS_LEVEL]"
-            },
-            {
-                "command-line-flag": "--version",
-                "default-value": false,
-                "description": "show program's version number and exit",
-                "id": "version",
-                "name": "version",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[VERSION]"
-            },
-            {
-                "command-line-flag": "--participant_label",
-                "description": "a space delimited list of participant identifiers or a single identifier (the sub- prefix can be removed)",
-                "id": "participant_label",
-                "list": true,
-                "name": "participant_label",
-                "optional": true,
-                "type": "String",
-                "value-key": "[PARTICIPANT_LABEL]"
-            },
-            {
-                "command-line-flag": "-t",
-                "description": "select a specific task to be processed",
-                "id": "task_id",
-                "name": "task_id",
-                "optional": true,
-                "type": "String",
-                "value-key": "[TASK_ID]"
-            },
-            {
-                "command-line-flag": "--fs-license-file",
-                "description": "Path to FreeSurfer license key file. Get it (for free) by registering at https://surfer.nmr.mgh.harvard.edu/registration.html",
-                "id": "fs_license_file",
-                "name": "fs_license_file",
-                "optional": true,
-                "type": "File",
-                "uses-absolute-path": true,
-                "value-key": "[FS_LICENSE_FILE]"
-            },
-            {
-                "command-line-flag": "--nthreads",
-                "default-value": 4,
-                "description": "maximum number of threads across all processes",
-                "id": "nthreads",
-                "name": "nthreads",
-                "optional": true,
-                "type": "Number",
-                "value-key": "[NTHREADS]"
-            },
-            {
-                "command-line-flag": "--omp-nthreads",
-                "default-value": 4,
-                "description": "maximum number of threads per-process",
-                "id": "omp_nthreads",
-                "name": "omp_nthreads",
-                "optional": true,
-                "type": "Number",
-                "value-key": "[OMP_NTHREADS]"
-            },
-            {
-                "command-line-flag": "--mem_mb",
-                "default-value": 8192,
-                "description": "upper bound memory limit for FMRIPREP processes",
-                "id": "mem_mb",
-                "name": "mem_mb",
-                "optional": true,
-                "type": "Number",
-                "value-key": "[MEM_MB]"
-            },
-            {
-                "command-line-flag": "--low-mem",
-                "description": "attempt to reduce memory usage (will increase disk usage in working directory)",
-                "id": "low_mem",
-                "name": "low_mem",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[LOW_MEM]"
-            },
-            {
-                "command-line-flag": "--use-plugin",
-                "description": "nipype plugin configuration file",
-                "id": "use_plugin",
-                "name": "use_plugin",
-                "optional": true,
-                "type": "String",
-                "value-key": "[USE_PLUGIN]"
-            },
-            {
-                "command-line-flag": "--anat-only",
-                "description": "run anatomical workflows only",
-                "id": "anat_only",
-                "name": "anat_only",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[ANAT_ONLY]"
-            },
-            {
-                "command-line-flag": "--boilerplate",
-                "description": "generate boilerplate only",
-                "id": "boilerplate",
-                "name": "boilerplate",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[BOILERPLATE]"
-            },
-            {
-                "command-line-flag": "--ignore-aroma-denoising-errors",
-                "description": "ignores the errors ICA_AROMA returns when there are no components classified as either noise or signal",
-                "id": "ignore_aroma_denoising_errors",
-                "name": "ignore_aroma_denoising_errors",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[IGNORE_AROMA_DENOISING_ERRORS]"
-            },
-            {
-                "command-line-flag": "-v",
-                "description": "increases log verbosity for each occurence, debug level is -vvv",
-                "id": "verbose_count",
-                "name": "verbose_count",
-                "optional": true,
-                "type": "String",
-                "value-key": "[VERBOSE_COUNT]"
-            },
-            {
-                "command-line-flag": "--debug",
-                "description": "DEPRECATED - Does not do what you want.",
-                "id": "debug",
-                "name": "debug",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[DEBUG]"
-            },
-            {
-                "command-line-flag": "--ignore",
-                "description": "ignore selected aspects of the input dataset to disable corresponding parts of the workflow (a space delimited list)",
-                "id": "ignore",
-                "list": true,
-                "name": "ignore",
-                "optional": true,
-                "type": "String",
-                "value-choices": [
-                    "fieldmaps",
-                    "slicetiming",
-                    "sbref"
-                ],
-                "value-key": "[IGNORE]"
-            },
-            {
-                "command-line-flag": "--longitudinal",
-                "description": "treat dataset as longitudinal - may increase runtime",
-                "id": "longitudinal",
-                "name": "longitudinal",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[LONGITUDINAL]"
-            },
-            {
-                "command-line-flag": "--t2s-coreg",
-                "description": "If provided with multi-echo BOLD dataset, create T2*-map and perform T2*-driven coregistration. When multi-echo data is provided and this option is not enabled, standard EPI-T1 coregistration is performed using the middle echo.",
-                "id": "t2s_coreg",
-                "name": "t2s_coreg",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[T2S_COREG]"
-            },
-            {
-                "command-line-flag": "--bold2t1w-dof",
-                "default-value": 6,
-                "description": "Degrees of freedom when registering BOLD to T1w images. 6 degrees (rotation and translation) are used by default.",
-                "id": "bold2t1w_dof",
-                "name": "bold2t1w_dof",
-                "optional": true,
-                "type": "Number",
-                "value-choices": [
-                    6,
-                    9,
-                    12
-                ],
-                "value-key": "[BOLD2T1W_DOF]"
-            },
-            {
-                "command-line-flag": "--output-space",
-                "description": "volume and surface spaces to resample functional series into\n - T1w: subject anatomical volume\n - template: normalization target specified by --template\n - fsnative: individual subject surface\n - fsaverage*: FreeSurfer average meshes\nthis argument can be single value or a space delimited list,\nfor example: --output-space T1w fsnative",
-                "id": "output_space",
-                "list": true,
-                "name": "output_space",
-                "optional": true,
-                "type": "String",
-                "value-choices": [
-                    "T1w",
-                    "template",
-                    "fsnative",
-                    "fsaverage",
-                    "fsaverage6",
-                    "fsaverage5"
-                ],
-                "value-key": "[OUTPUT_SPACE]"
-            },
-            {
-                "command-line-flag": "--force-bbr",
-                "description": "Always use boundary-based registration (no goodness-of-fit checks)",
-                "id": "use_bbr",
-                "name": "use_bbr",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[USE_BBR]"
-            },
-            {
-                "command-line-flag": "--template",
-                "default-value": "MNI152NLin2009cAsym",
-                "description": "volume template space (default: MNI152NLin2009cAsym)",
-                "id": "template",
-                "name": "template",
-                "optional": true,
-                "type": "String",
-                "value-choices": [
-                    "MNI152NLin2009cAsym"
-                ],
-                "value-key": "[TEMPLATE]"
-            },
-            {
-                "command-line-flag": "--output-grid-reference",
-                "description": "Deprecated after FMRIPREP 1.0.8. Please use --template-resampling-grid instead.",
-                "id": "output_grid_reference",
-                "name": "output_grid_reference",
-                "optional": true,
-                "type": "String",
-                "value-key": "[OUTPUT_GRID_REFERENCE]"
-            },
-            {
-                "command-line-flag": "--template-resampling-grid",
-                "default-value": "native",
-                "description": "Keyword (\"native\", \"1mm\", or \"2mm\") or path to an existing file. Allows to define a reference grid for the resampling of BOLD images in template space. Keyword \"native\" will use the original BOLD grid as reference. Keywords \"1mm\" and \"2mm\" will use the corresponding isotropic template resolutions. If a path is given, the grid of that image will be used. It determines the field of view and resolution of the output images, but is not used in normalization.",
-                "id": "template_resampling_grid",
-                "name": "template_resampling_grid",
-                "optional": true,
-                "type": "String",
-                "value-key": "[TEMPLATE_RESAMPLING_GRID]"
-            },
-            {
-                "command-line-flag": "--medial-surface-nan",
-                "description": "Replace medial wall values with NaNs on functional GIFTI files. Only performed for GIFTI files mapped to a freesurfer subject (fsaverage or fsnative).",
-                "id": "medial_surface_nan",
-                "name": "medial_surface_nan",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[MEDIAL_SURFACE_NAN]"
-            },
-            {
-                "command-line-flag": "--use-aroma",
-                "description": "add ICA_AROMA to your preprocessing stream",
-                "id": "use_aroma",
-                "name": "use_aroma",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[USE_AROMA]"
-            },
-            {
-                "command-line-flag": "--aroma-melodic-dimensionality",
-                "default-value": -200,
-                "description": "Exact or maximum number of MELODIC components to estimate (positive = exact, negative = maximum)",
-                "id": "aroma_melodic_dimensionality",
-                "name": "aroma_melodic_dimensionality",
-                "optional": true,
-                "type": "Number",
-                "value-key": "[AROMA_MELODIC_DIMENSIONALITY]"
-            },
-            {
-                "command-line-flag": "--skull-strip-template",
-                "default-value": "OASIS",
-                "description": "select ANTs skull-stripping template (default: OASIS))",
-                "id": "skull_strip_template",
-                "name": "skull_strip_template",
-                "optional": true,
-                "type": "String",
-                "value-choices": [
-                    "OASIS",
-                    "NKI"
-                ],
-                "value-key": "[SKULL_STRIP_TEMPLATE]"
-            },
-            {
-                "command-line-flag": "--skull-strip-fixed-seed",
-                "description": "do not use a random seed for skull-stripping - will ensure run-to-run replicability when used with --omp-nthreads 1",
-                "id": "skull_strip_fixed_seed",
-                "name": "skull_strip_fixed_seed",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[SKULL_STRIP_FIXED_SEED]"
-            },
-            {
-                "command-line-flag": "--fmap-bspline",
-                "description": "fit a B-Spline field using least-squares (experimental)",
-                "id": "fmap_bspline",
-                "name": "fmap_bspline",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[FMAP_BSPLINE]"
-            },
-            {
-                "command-line-flag": "--fmap-no-demean",
-                "default-value": true,
-                "description": "do not remove median (within mask) from fieldmap",
-                "id": "fmap_no_demean",
-                "name": "fmap_no_demean",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[FMAP_NO_DEMEAN]"
-            },
-            {
-                "command-line-flag": "--use-syn-sdc",
-                "description": "EXPERIMENTAL: Use fieldmap-free distortion correction",
-                "id": "use_syn_sdc",
-                "name": "use_syn_sdc",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[USE_SYN_SDC]"
-            },
-            {
-                "command-line-flag": "--force-syn",
-                "description": "EXPERIMENTAL/TEMPORARY: Use SyN correction in addition to fieldmap correction, if available",
-                "id": "force_syn",
-                "name": "force_syn",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[FORCE_SYN]"
-            },
-            {
-                "command-line-flag": "--no-submm-recon",
-                "default-value": true,
-                "description": "disable sub-millimeter (hires) reconstruction",
-                "id": "hires",
-                "name": "hires",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[HIRES]"
-            },
-            {
-                "command-line-flag": "--cifti-output",
-                "description": "output BOLD files as CIFTI dtseries",
-                "id": "cifti_output",
-                "name": "cifti_output",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[CIFTI_OUTPUT]"
-            },
-            {
-                "command-line-flag": "--fs-no-reconall",
-                "default-value": true,
-                "description": "disable FreeSurfer surface preprocessing. Note : `--no-freesurfer` is deprecated and will be removed in 1.2. Use `--fs-no-reconall` instead.",
-                "id": "run_reconall",
-                "name": "run_reconall",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[RUN_RECONALL]"
-            },
-            {
-                "command-line-flag": "-w",
-                "description": "path where intermediate results should be stored",
-                "id": "work_dir",
-                "name": "work_dir",
-                "optional": true,
-                "type": "String",
-                "value-key": "[WORK_DIR]"
-            },
-            {
-                "command-line-flag": "--resource-monitor",
-                "description": "enable Nipype's resource monitoring to keep track of memory and CPU usage",
-                "id": "resource_monitor",
-                "name": "resource_monitor",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[RESOURCE_MONITOR]"
-            },
-            {
-                "command-line-flag": "--reports-only",
-                "description": "only generate reports, don't run workflows. This will only rerun report aggregation, not reportlet generation for specific nodes.",
-                "id": "reports_only",
-                "name": "reports_only",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[REPORTS_ONLY]"
-            },
-            {
-                "command-line-flag": "--run-uuid",
-                "description": "Specify UUID of previous run, to include error logs in report. No effect without --reports-only.",
-                "id": "run_uuid",
-                "name": "run_uuid",
-                "optional": true,
-                "type": "String",
-                "value-key": "[RUN_UUID]"
-            },
-            {
-                "command-line-flag": "--write-graph",
-                "description": "Write workflow graph.",
-                "id": "write_graph",
-                "name": "write_graph",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[WRITE_GRAPH]"
-            },
-            {
-                "command-line-flag": "--stop-on-first-crash",
-                "description": "Force stopping on first crash, even if a work directory was specified.",
-                "id": "stop_on_first_crash",
-                "name": "stop_on_first_crash",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[STOP_ON_FIRST_CRASH]"
-            },
-            {
-                "command-line-flag": "--notrack",
-                "description": "Opt-out of sending tracking information of this run to the FMRIPREP developers. This information helps to improve FMRIPREP and provides an indicator of real world usage crucial for obtaining funding.",
-                "id": "notrack",
-                "name": "notrack",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[NOTRACK]"
-            },
-            {
-                "command-line-flag": "--sloppy",
-                "description": "Use low-quality tools for speed - TESTING ONLY",
-                "id": "sloppy",
-                "name": "sloppy",
-                "optional": true,
-                "type": "Flag",
-                "value-key": "[SLOPPY]"
-            }
-        ],
-        "name": "BIDS App - fmriprep",
-        "output-files": [
-            {
-                "description": "This is the directory where the overall outputs are to be stored.",
-                "id": "output_directory",
-                "name": "Output Directory",
-                "optional": false,
-                "path-template": "[OUTPUT_DIR]"
-            }
-        ],
-        "schema-version": "0.5",
-        "suggested-resources": {
-            "cpu-cores": 4,
-            "ram": 4,
-            "walltime-estimate": 172000
-        },
-        "tags": {
-            "application-type": [
-                "bids"
-            ],
-            "domain": [
-                "neuroinformatics",
-                "fmri"
-            ]
-        },
-        "tool-version": "1.2.3",
-        "url": "https://fmriprep.readthedocs.io"
-    },
-    {
         "command-line": "$BEST_DIR/run_BEst.sh $MCR_ROOT [RECORDINGS] [LEADFIELD] [ADJACENCY_MATRIX] [SOURCES] [MEM_METHOD] \"[SENSOR_TYPES]\" \"[RECONSTRUCTION_WINDOW]\" \"[BASELINE_WINDOW]\" [BASELINE] [NORMALIZATION] [CLUSTERING_METHOD] [MSP_WINDOW] [MSP_THRESHOLD_METHOD] [MSP_THRESHOLD] [NEIGHBORHOOD_ORDER] [SPATIAL_SMOOTHING] [ACTIVE_MEAN_INIT] [ACTIVE_PROBA_INIT] [LAMBDA_INIT] [ACTIVE_PROBA_THRESHOLD] [ACTIVE_VAR_COEF] [INACTIVE_VAR_COEF] [NOISE_COV_METHOD] [OPTIM_METHOD] [USE_PARALLEL]",
         "container-image": {
             "image": "MontrealSergiy/BEst",
@@ -6906,6 +6363,549 @@
             ]
         },
         "tool-version": "v0.1.0"
+    },
+    {
+        "author": "Poldrack lab",
+        "command-line": "fmriprep [BIDS_DIR] [OUTPUT_DIR] [ANALYSIS_LEVEL] [PARTICIPANT_LABEL] [TASK_ID] [VERSION] [NTHREADS] [OMP_NTHREADS] [MEM_MB] [LOW_MEM] [USE_PLUGIN] [ANAT_ONLY] [BOILERPLATE] [IGNORE_AROMA_DENOISING_ERRORS] [VERBOSE_COUNT] [DEBUG] [IGNORE] [LONGITUDINAL] [T2S_COREG] [BOLD2T1W_DOF] [OUTPUT_SPACE] [USE_BBR] [TEMPLATE] [OUTPUT_GRID_REFERENCE] [TEMPLATE_RESAMPLING_GRID] [MEDIAL_SURFACE_NAN] [USE_AROMA] [AROMA_MELODIC_DIMENSIONALITY] [SKULL_STRIP_TEMPLATE] [SKULL_STRIP_FIXED_SEED] [FMAP_BSPLINE] [FMAP_NO_DEMEAN] [USE_SYN_SDC] [FORCE_SYN] [FS_LICENSE_FILE] [HIRES] [CIFTI_OUTPUT] [RUN_RECONALL] [WORK_DIR] [RESOURCE_MONITOR] [REPORTS_ONLY] [RUN_UUID] [WRITE_GRAPH] [STOP_ON_FIRST_CRASH] [NOTRACK] [SLOPPY]",
+        "container-image": {
+            "image": "shots47s/bids-fmriprep-1.2.3",
+            "type": "singularity"
+        },
+        "custom": {
+            "cbrain:readonly-input-files": true
+        },
+        "description": "fMRIprep is a functional magneticresonance image pre-processing pipeline that is designed to provide an easily accessible, state-of-the-art interface that is robust to differences in scan acquisition protocols and that requires minimal user input, while providing easily interpretable and comprehensive error and output reporting. https://fmriprep.readthedocs.io",
+        "groups": [
+            {
+                "description": "Paramters used to define memory requirements and multithreading",
+                "id": "memory_and_parallelism",
+                "members": [
+                    "nthreads",
+                    "omp_nthreads",
+                    "mem_mb",
+                    "low_mem"
+                ],
+                "name": "Memory and Parallel Control Parameters"
+            },
+            {
+                "description": "Diagnostic parameters for debugging fMRIprep",
+                "id": "debugging",
+                "members": [
+                    "version",
+                    "verbose_count",
+                    "resource_monitor",
+                    "reports_only",
+                    "run_uuid",
+                    "stop_on_first_crash",
+                    "notrack",
+                    "write_graph",
+                    "sloppy"
+                ],
+                "name": "Debugging Parameters"
+            },
+            {
+                "description": "Parameters that one should use at their own risk.",
+                "id": "experimental",
+                "members": [
+                    "use_syn_sdc",
+                    "force_syn"
+                ],
+                "name": "Experimental Parameters"
+            },
+            {
+                "description": "Parameters that are no longer useful or supported",
+                "id": "deprecated",
+                "members": [
+                    "debug",
+                    "output_grid_reference"
+                ],
+                "name": "Deprecated Parameters"
+            }
+        ],
+        "inputs": [
+            {
+                "description": "the root folder of a BIDS valid dataset (sub-XXXXX folders should be found at the top level in this folder).",
+                "id": "bids_dir",
+                "name": "bids_dir",
+                "optional": false,
+                "type": "File",
+                "value-key": "[BIDS_DIR]"
+            },
+            {
+                "description": "the output path for the outcomes of preprocessing and visual reports",
+                "id": "output_dir",
+                "name": "output_dir",
+                "optional": false,
+                "type": "String",
+                "value-key": "[OUTPUT_DIR]"
+            },
+            {
+                "description": "processing stage to be run, only \"participant\" in the case of FMRIPREP (see BIDS-Apps specification).",
+                "id": "analysis_level",
+                "name": "analysis_level",
+                "optional": false,
+                "type": "String",
+                "value-choices": [
+                    "participant"
+                ],
+                "value-key": "[ANALYSIS_LEVEL]"
+            },
+            {
+                "command-line-flag": "--version",
+                "default-value": false,
+                "description": "show program's version number and exit",
+                "id": "version",
+                "name": "version",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[VERSION]"
+            },
+            {
+                "command-line-flag": "--participant_label",
+                "description": "a space delimited list of participant identifiers or a single identifier (the sub- prefix can be removed)",
+                "id": "participant_label",
+                "list": true,
+                "name": "participant_label",
+                "optional": true,
+                "type": "String",
+                "value-key": "[PARTICIPANT_LABEL]"
+            },
+            {
+                "command-line-flag": "-t",
+                "description": "select a specific task to be processed",
+                "id": "task_id",
+                "name": "task_id",
+                "optional": true,
+                "type": "String",
+                "value-key": "[TASK_ID]"
+            },
+            {
+                "command-line-flag": "--fs-license-file",
+                "description": "Path to FreeSurfer license key file. Get it (for free) by registering at https://surfer.nmr.mgh.harvard.edu/registration.html",
+                "id": "fs_license_file",
+                "name": "fs_license_file",
+                "optional": true,
+                "type": "File",
+                "uses-absolute-path": true,
+                "value-key": "[FS_LICENSE_FILE]"
+            },
+            {
+                "command-line-flag": "--nthreads",
+                "default-value": 4,
+                "description": "maximum number of threads across all processes",
+                "id": "nthreads",
+                "name": "nthreads",
+                "optional": true,
+                "type": "Number",
+                "value-key": "[NTHREADS]"
+            },
+            {
+                "command-line-flag": "--omp-nthreads",
+                "default-value": 4,
+                "description": "maximum number of threads per-process",
+                "id": "omp_nthreads",
+                "name": "omp_nthreads",
+                "optional": true,
+                "type": "Number",
+                "value-key": "[OMP_NTHREADS]"
+            },
+            {
+                "command-line-flag": "--mem_mb",
+                "default-value": 8192,
+                "description": "upper bound memory limit for FMRIPREP processes",
+                "id": "mem_mb",
+                "name": "mem_mb",
+                "optional": true,
+                "type": "Number",
+                "value-key": "[MEM_MB]"
+            },
+            {
+                "command-line-flag": "--low-mem",
+                "description": "attempt to reduce memory usage (will increase disk usage in working directory)",
+                "id": "low_mem",
+                "name": "low_mem",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[LOW_MEM]"
+            },
+            {
+                "command-line-flag": "--use-plugin",
+                "description": "nipype plugin configuration file",
+                "id": "use_plugin",
+                "name": "use_plugin",
+                "optional": true,
+                "type": "String",
+                "value-key": "[USE_PLUGIN]"
+            },
+            {
+                "command-line-flag": "--anat-only",
+                "description": "run anatomical workflows only",
+                "id": "anat_only",
+                "name": "anat_only",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[ANAT_ONLY]"
+            },
+            {
+                "command-line-flag": "--boilerplate",
+                "description": "generate boilerplate only",
+                "id": "boilerplate",
+                "name": "boilerplate",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[BOILERPLATE]"
+            },
+            {
+                "command-line-flag": "--ignore-aroma-denoising-errors",
+                "description": "ignores the errors ICA_AROMA returns when there are no components classified as either noise or signal",
+                "id": "ignore_aroma_denoising_errors",
+                "name": "ignore_aroma_denoising_errors",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[IGNORE_AROMA_DENOISING_ERRORS]"
+            },
+            {
+                "command-line-flag": "-v",
+                "description": "increases log verbosity for each occurence, debug level is -vvv",
+                "id": "verbose_count",
+                "name": "verbose_count",
+                "optional": true,
+                "type": "String",
+                "value-key": "[VERBOSE_COUNT]"
+            },
+            {
+                "command-line-flag": "--debug",
+                "description": "DEPRECATED - Does not do what you want.",
+                "id": "debug",
+                "name": "debug",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[DEBUG]"
+            },
+            {
+                "command-line-flag": "--ignore",
+                "description": "ignore selected aspects of the input dataset to disable corresponding parts of the workflow (a space delimited list)",
+                "id": "ignore",
+                "list": true,
+                "name": "ignore",
+                "optional": true,
+                "type": "String",
+                "value-choices": [
+                    "fieldmaps",
+                    "slicetiming",
+                    "sbref"
+                ],
+                "value-key": "[IGNORE]"
+            },
+            {
+                "command-line-flag": "--longitudinal",
+                "description": "treat dataset as longitudinal - may increase runtime",
+                "id": "longitudinal",
+                "name": "longitudinal",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[LONGITUDINAL]"
+            },
+            {
+                "command-line-flag": "--t2s-coreg",
+                "description": "If provided with multi-echo BOLD dataset, create T2*-map and perform T2*-driven coregistration. When multi-echo data is provided and this option is not enabled, standard EPI-T1 coregistration is performed using the middle echo.",
+                "id": "t2s_coreg",
+                "name": "t2s_coreg",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[T2S_COREG]"
+            },
+            {
+                "command-line-flag": "--bold2t1w-dof",
+                "default-value": 6,
+                "description": "Degrees of freedom when registering BOLD to T1w images. 6 degrees (rotation and translation) are used by default.",
+                "id": "bold2t1w_dof",
+                "name": "bold2t1w_dof",
+                "optional": true,
+                "type": "Number",
+                "value-choices": [
+                    6,
+                    9,
+                    12
+                ],
+                "value-key": "[BOLD2T1W_DOF]"
+            },
+            {
+                "command-line-flag": "--output-space",
+                "description": "volume and surface spaces to resample functional series into\n - T1w: subject anatomical volume\n - template: normalization target specified by --template\n - fsnative: individual subject surface\n - fsaverage*: FreeSurfer average meshes\nthis argument can be single value or a space delimited list,\nfor example: --output-space T1w fsnative",
+                "id": "output_space",
+                "list": true,
+                "name": "output_space",
+                "optional": true,
+                "type": "String",
+                "value-choices": [
+                    "T1w",
+                    "template",
+                    "fsnative",
+                    "fsaverage",
+                    "fsaverage6",
+                    "fsaverage5"
+                ],
+                "value-key": "[OUTPUT_SPACE]"
+            },
+            {
+                "command-line-flag": "--force-bbr",
+                "description": "Always use boundary-based registration (no goodness-of-fit checks)",
+                "id": "use_bbr",
+                "name": "use_bbr",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[USE_BBR]"
+            },
+            {
+                "command-line-flag": "--template",
+                "default-value": "MNI152NLin2009cAsym",
+                "description": "volume template space (default: MNI152NLin2009cAsym)",
+                "id": "template",
+                "name": "template",
+                "optional": true,
+                "type": "String",
+                "value-choices": [
+                    "MNI152NLin2009cAsym"
+                ],
+                "value-key": "[TEMPLATE]"
+            },
+            {
+                "command-line-flag": "--output-grid-reference",
+                "description": "Deprecated after FMRIPREP 1.0.8. Please use --template-resampling-grid instead.",
+                "id": "output_grid_reference",
+                "name": "output_grid_reference",
+                "optional": true,
+                "type": "String",
+                "value-key": "[OUTPUT_GRID_REFERENCE]"
+            },
+            {
+                "command-line-flag": "--template-resampling-grid",
+                "default-value": "native",
+                "description": "Keyword (\"native\", \"1mm\", or \"2mm\") or path to an existing file. Allows to define a reference grid for the resampling of BOLD images in template space. Keyword \"native\" will use the original BOLD grid as reference. Keywords \"1mm\" and \"2mm\" will use the corresponding isotropic template resolutions. If a path is given, the grid of that image will be used. It determines the field of view and resolution of the output images, but is not used in normalization.",
+                "id": "template_resampling_grid",
+                "name": "template_resampling_grid",
+                "optional": true,
+                "type": "String",
+                "value-key": "[TEMPLATE_RESAMPLING_GRID]"
+            },
+            {
+                "command-line-flag": "--medial-surface-nan",
+                "description": "Replace medial wall values with NaNs on functional GIFTI files. Only performed for GIFTI files mapped to a freesurfer subject (fsaverage or fsnative).",
+                "id": "medial_surface_nan",
+                "name": "medial_surface_nan",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[MEDIAL_SURFACE_NAN]"
+            },
+            {
+                "command-line-flag": "--use-aroma",
+                "description": "add ICA_AROMA to your preprocessing stream",
+                "id": "use_aroma",
+                "name": "use_aroma",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[USE_AROMA]"
+            },
+            {
+                "command-line-flag": "--aroma-melodic-dimensionality",
+                "default-value": -200,
+                "description": "Exact or maximum number of MELODIC components to estimate (positive = exact, negative = maximum)",
+                "id": "aroma_melodic_dimensionality",
+                "name": "aroma_melodic_dimensionality",
+                "optional": true,
+                "type": "Number",
+                "value-key": "[AROMA_MELODIC_DIMENSIONALITY]"
+            },
+            {
+                "command-line-flag": "--skull-strip-template",
+                "default-value": "OASIS",
+                "description": "select ANTs skull-stripping template (default: OASIS))",
+                "id": "skull_strip_template",
+                "name": "skull_strip_template",
+                "optional": true,
+                "type": "String",
+                "value-choices": [
+                    "OASIS",
+                    "NKI"
+                ],
+                "value-key": "[SKULL_STRIP_TEMPLATE]"
+            },
+            {
+                "command-line-flag": "--skull-strip-fixed-seed",
+                "description": "do not use a random seed for skull-stripping - will ensure run-to-run replicability when used with --omp-nthreads 1",
+                "id": "skull_strip_fixed_seed",
+                "name": "skull_strip_fixed_seed",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[SKULL_STRIP_FIXED_SEED]"
+            },
+            {
+                "command-line-flag": "--fmap-bspline",
+                "description": "fit a B-Spline field using least-squares (experimental)",
+                "id": "fmap_bspline",
+                "name": "fmap_bspline",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[FMAP_BSPLINE]"
+            },
+            {
+                "command-line-flag": "--fmap-no-demean",
+                "default-value": true,
+                "description": "do not remove median (within mask) from fieldmap",
+                "id": "fmap_no_demean",
+                "name": "fmap_no_demean",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[FMAP_NO_DEMEAN]"
+            },
+            {
+                "command-line-flag": "--use-syn-sdc",
+                "description": "EXPERIMENTAL: Use fieldmap-free distortion correction",
+                "id": "use_syn_sdc",
+                "name": "use_syn_sdc",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[USE_SYN_SDC]"
+            },
+            {
+                "command-line-flag": "--force-syn",
+                "description": "EXPERIMENTAL/TEMPORARY: Use SyN correction in addition to fieldmap correction, if available",
+                "id": "force_syn",
+                "name": "force_syn",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[FORCE_SYN]"
+            },
+            {
+                "command-line-flag": "--no-submm-recon",
+                "default-value": true,
+                "description": "disable sub-millimeter (hires) reconstruction",
+                "id": "hires",
+                "name": "hires",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[HIRES]"
+            },
+            {
+                "command-line-flag": "--cifti-output",
+                "description": "output BOLD files as CIFTI dtseries",
+                "id": "cifti_output",
+                "name": "cifti_output",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[CIFTI_OUTPUT]"
+            },
+            {
+                "command-line-flag": "--fs-no-reconall",
+                "default-value": true,
+                "description": "disable FreeSurfer surface preprocessing. Note : `--no-freesurfer` is deprecated and will be removed in 1.2. Use `--fs-no-reconall` instead.",
+                "id": "run_reconall",
+                "name": "run_reconall",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[RUN_RECONALL]"
+            },
+            {
+                "command-line-flag": "-w",
+                "description": "path where intermediate results should be stored",
+                "id": "work_dir",
+                "name": "work_dir",
+                "optional": true,
+                "type": "String",
+                "value-key": "[WORK_DIR]"
+            },
+            {
+                "command-line-flag": "--resource-monitor",
+                "description": "enable Nipype's resource monitoring to keep track of memory and CPU usage",
+                "id": "resource_monitor",
+                "name": "resource_monitor",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[RESOURCE_MONITOR]"
+            },
+            {
+                "command-line-flag": "--reports-only",
+                "description": "only generate reports, don't run workflows. This will only rerun report aggregation, not reportlet generation for specific nodes.",
+                "id": "reports_only",
+                "name": "reports_only",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[REPORTS_ONLY]"
+            },
+            {
+                "command-line-flag": "--run-uuid",
+                "description": "Specify UUID of previous run, to include error logs in report. No effect without --reports-only.",
+                "id": "run_uuid",
+                "name": "run_uuid",
+                "optional": true,
+                "type": "String",
+                "value-key": "[RUN_UUID]"
+            },
+            {
+                "command-line-flag": "--write-graph",
+                "description": "Write workflow graph.",
+                "id": "write_graph",
+                "name": "write_graph",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[WRITE_GRAPH]"
+            },
+            {
+                "command-line-flag": "--stop-on-first-crash",
+                "description": "Force stopping on first crash, even if a work directory was specified.",
+                "id": "stop_on_first_crash",
+                "name": "stop_on_first_crash",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[STOP_ON_FIRST_CRASH]"
+            },
+            {
+                "command-line-flag": "--notrack",
+                "description": "Opt-out of sending tracking information of this run to the FMRIPREP developers. This information helps to improve FMRIPREP and provides an indicator of real world usage crucial for obtaining funding.",
+                "id": "notrack",
+                "name": "notrack",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[NOTRACK]"
+            },
+            {
+                "command-line-flag": "--sloppy",
+                "description": "Use low-quality tools for speed - TESTING ONLY",
+                "id": "sloppy",
+                "name": "sloppy",
+                "optional": true,
+                "type": "Flag",
+                "value-key": "[SLOPPY]"
+            }
+        ],
+        "name": "BIDS App - fmriprep",
+        "output-files": [
+            {
+                "description": "This is the directory where the overall outputs are to be stored.",
+                "id": "output_directory",
+                "name": "Output Directory",
+                "optional": false,
+                "path-template": "[OUTPUT_DIR]"
+            }
+        ],
+        "schema-version": "0.5",
+        "suggested-resources": {
+            "cpu-cores": 4,
+            "ram": 4,
+            "walltime-estimate": 172000
+        },
+        "tags": {
+            "application-type": [
+                "bids"
+            ],
+            "domain": [
+                "neuroinformatics",
+                "fmri"
+            ]
+        },
+        "tool-version": "1.2.3",
+        "url": "https://fmriprep.readthedocs.io"
     },
     {
         "name": "FLIRT",
@@ -8153,103 +8153,6 @@
         "name": "CorticalThickness"
     },
     {
-        "name": "LaplacianThickness",
-        "command-line": "${ANTSPATH}/LaplacianThickness [INPUT_WM] [INPUT_GM] [OUTPUT_IMAGE] [SMOOTH_PARAM] [PRIOR_THICKNESS] [DT] [SULCUS_PRIOR] [TOLERANCE]",
-        "author": "Nipype (interface), Brian B. Avants et al. (tool)",
-        "description": "LaplacianThickness, as implemented in Nipype (module: nipype.interfaces.ants, interface: LaplacianThickness).",
-        "inputs": [
-            {
-                "id": "dT",
-                "name": "Dt",
-                "type": "Number",
-                "value-key": "[DT]",
-                "description": "A float. Time delta used during integration (defaults to 0.01).",
-                "optional": true,
-                "requires-inputs": [
-                    "prior_thickness"
-                ]
-            },
-            {
-                "id": "input_gm",
-                "name": "Input gm",
-                "type": "File",
-                "value-key": "[INPUT_GM]",
-                "description": "A file name. Gray matter segmentation image.",
-                "optional": false
-            },
-            {
-                "id": "input_wm",
-                "name": "Input wm",
-                "type": "File",
-                "value-key": "[INPUT_WM]",
-                "description": "A file name. White matter segmentation image.",
-                "optional": false
-            },
-            {
-                "id": "prior_thickness",
-                "name": "Prior thickness",
-                "type": "Number",
-                "value-key": "[PRIOR_THICKNESS]",
-                "description": "A float. Prior thickness (defaults to 500).",
-                "optional": true,
-                "requires-inputs": [
-                    "smooth_param"
-                ]
-            },
-            {
-                "id": "smooth_param",
-                "name": "Smooth param",
-                "type": "Number",
-                "value-key": "[SMOOTH_PARAM]",
-                "description": "A float. Sigma of the laplacian recursive image filter (defaults to 1).",
-                "optional": true
-            },
-            {
-                "id": "sulcus_prior",
-                "name": "Sulcus prior",
-                "type": "Number",
-                "value-key": "[SULCUS_PRIOR]",
-                "description": "A float. Positive floating point number for sulcus prior. Authors said that 0.15 might be a reasonable value.",
-                "optional": true,
-                "requires-inputs": [
-                    "dT"
-                ]
-            },
-            {
-                "id": "tolerance",
-                "name": "Tolerance",
-                "type": "Number",
-                "value-key": "[TOLERANCE]",
-                "description": "A float. Tolerance to reach during optimization (defaults to 0.001).",
-                "optional": true,
-                "requires-inputs": [
-                    "sulcus_prior"
-                ]
-            }
-        ],
-        "output-files": [
-            {
-                "name": "Output image",
-                "id": "output_image",
-                "optional": true,
-                "description": "An existing file name. Cortical thickness.",
-                "path-template": "[INPUT_WM]_thickness",
-                "value-key": "[OUTPUT_IMAGE]"
-            }
-        ],
-        "tool-version": "1.0.0",
-        "schema-version": "0.5",
-        "container-image": {
-            "image": "bt5e/ants:latest",
-            "index": "index.docker.io",
-            "type": "docker"
-        },
-        "tags": {
-            "domain": "neuroinformatics",
-            "source": "nipype-interface"
-        }
-    },
-    {
         "name": "BrainExtraction",
         "command-line": "${ANTSPATH}/antsBrainExtraction.sh [ANATOMICAL_IMAGE] [BRAIN_PROBABILITY_MASK] [BRAIN_TEMPLATE] [DEBUG] [DIMENSION] [EXTRACTION_REGISTRATION_MASK] [IMAGE_SUFFIX] [KEEP_TEMPORARY_FILES] [OUT_PREFIX] [USE_FLOATINGPOINT_PRECISION] [USE_RANDOM_SEEDING]",
         "author": "Nipype (interface), Brian B. Avants et al. (tool)",
@@ -8516,52 +8419,129 @@
         }
     },
     {
-        "tool-version": "1.0.0",
-        "description": "Concatenate multiple ANTs warping fields using ComposeMultiTransform.\n\nFor instance if you have\n- Warping field: anatomical to MNI template\n- Affine matrix: Diffusion to anatomical\nYou can obtain the transform diffusion to MNI template\n\n\nComposeMultiTransform ImageDimension output_field [-R reference_image] {[deformation_field | [-i] affine_transform_txt ]}\n  Usage has the same form as WarpImageMultiTransform\n For Example:\n\nComposeMultiTransform Dimension  outwarp.nii   -R template.nii   ExistingWarp.nii  ExistingAffine.nii\n or for an inverse mapping :\nComposeMultiTransform Dimension  outwarp.nii   -R template.nii   -i ExistingAffine.nii ExistingInverseWarp.nii\n recalling that the -i option takes the inverse of the affine mapping\n\nOr: to compose multiple affine text file into one:\nComposeMultiTransform ImageDimension output_affine_txt [-R reference_affine_txt] {[-i] affine_transform_txt}\nThis will be evoked if a text file is given as the second parameter. In this case reference_affine_txt is used to define the center of the output affine.  The default reference is the first given affine text file. This ignores all non-txt files among the following parameters.\n\n",
-        "command-line": "ComposeMultiTransform 3 [OUPUT_WARPING_FIELD] -R [REFERENCE_IMAGE] [1ST_WARPING_FIELD__OR_AFFINE_MATRIX_] [2ND_WARPING_FIELD]",
-        "author": "TONIC",
-        "container-image": {
-            "image": "bids/mrtrix3_connectome",
-            "type": "docker"
-        },
+        "name": "ApplyTOPUP",
+        "command-line": "applytopup [DATATYPE] [ENCODING_FILE] [IN_FILES] [IN_INDEX] [IN_TOPUP_FIELDCOEF] [INTERP] [METHOD] [OUT_CORRECTED]",
+        "author": "Nipype (interface), Oxford Centre for Functional MRI of the Brain (FMRIB) (tool)",
+        "description": "ApplyTOPUP, as implemented in Nipype (module: nipype.interfaces.fsl, interface: ApplyTOPUP).",
         "inputs": [
             {
-                "description": "Reference Image",
-                "value-key": "[REFERENCE_IMAGE]",
-                "type": "File",
-                "optional": false,
-                "id": "reference_image",
-                "name": "Reference Image"
+                "id": "datatype",
+                "name": "Datatype",
+                "type": "String",
+                "value-key": "[DATATYPE]",
+                "command-line-flag": "--datatype",
+                "command-line-flag-separator": "=",
+                "description": "'char' or 'short' or 'int' or 'float' or 'double'. Force output data type.",
+                "optional": true,
+                "value-choices": [
+                    "char",
+                    "short",
+                    "int",
+                    "float",
+                    "double"
+                ]
             },
             {
-                "description": "1st warping field (or affine matrix)",
-                "value-key": "[1ST_WARPING_FIELD__OR_AFFINE_MATRIX_]",
+                "id": "encoding_file",
+                "name": "Encoding file",
                 "type": "File",
-                "optional": false,
-                "id": "1st_warping_field__or_affine_matrix_",
-                "name": "1st warping field (or affine matrix)"
+                "value-key": "[ENCODING_FILE]",
+                "command-line-flag": "--datain",
+                "command-line-flag-separator": "=",
+                "description": "An existing file name. Name of text file with pe directions/times.",
+                "optional": false
             },
             {
-                "description": "2nd warping field",
-                "value-key": "[2ND_WARPING_FIELD]",
+                "id": "in_files",
+                "name": "In files",
                 "type": "File",
-                "optional": false,
-                "id": "2nd_warping_field",
-                "name": "2nd warping field"
+                "list": true,
+                "list-separator": ",",
+                "value-key": "[IN_FILES]",
+                "command-line-flag": "--imain",
+                "command-line-flag-separator": "=",
+                "description": "A list of items which are an existing file name. Name of file with images.",
+                "optional": false
+            },
+            {
+                "id": "in_index",
+                "name": "In index",
+                "type": "Number",
+                "list": true,
+                "integer": true,
+                "list-separator": ",",
+                "value-key": "[IN_INDEX]",
+                "command-line-flag": "--inindex",
+                "command-line-flag-separator": "=",
+                "description": "A list of items which are an integer (int or long). Comma separated list of indices corresponding to --datain.",
+                "optional": false
+            },
+            {
+                "id": "in_topup_fieldcoef",
+                "name": "In topup fieldcoef",
+                "type": "File",
+                "value-key": "[IN_TOPUP_FIELDCOEF]",
+                "command-line-flag": "--topup",
+                "command-line-flag-separator": "=",
+                "description": "An existing file name. Topup file containing the field coefficients.",
+                "optional": false
+            },
+            {
+                "id": "interp",
+                "name": "Interp",
+                "type": "String",
+                "value-key": "[INTERP]",
+                "command-line-flag": "--interp",
+                "command-line-flag-separator": "=",
+                "description": "'trilinear' or 'spline'. Interpolation method.",
+                "optional": true,
+                "value-choices": [
+                    "trilinear",
+                    "spline"
+                ]
+            },
+            {
+                "id": "method",
+                "name": "Method",
+                "type": "String",
+                "value-key": "[METHOD]",
+                "command-line-flag": "--method",
+                "command-line-flag-separator": "=",
+                "description": "'jac' or 'lsr'. Use jacobian modulation (jac) or least-squares resampling (lsr).",
+                "optional": true,
+                "value-choices": [
+                    "jac",
+                    "lsr"
+                ]
             }
         ],
-        "schema-version": "0.5",
         "output-files": [
             {
-                "description": "Ouput warping field",
-                "value-key": "[OUPUT_WARPING_FIELD]",
-                "path-template": "./",
+                "name": "Out corrected",
+                "id": "out_corrected",
+                "path-template": "out_corrected",
                 "optional": false,
-                "id": "ouput_warping_field",
-                "name": "Ouput warping field"
+                "description": "An existing file name. Name of 4d image file with unwarped images.",
+                "value-key": "[OUT_CORRECTED]",
+                "command-line-flag": "--out",
+                "command-line-flag-separator": "="
             }
         ],
-        "name": "ConcatTransfo"
+        "tool-version": "1.0.0",
+        "schema-version": "0.5",
+        "container-image": {
+            "image": "mcin/docker-fsl:latest",
+            "type": "docker",
+            "index": "index.docker.io"
+        },
+        "tags": {
+            "domain": [
+                "neuroinformatics",
+                "dmri"
+            ],
+            "source": "nipype-interface"
+        },
+        "url": "https://github.com/nipy/nipype/blob/master/nipype/interfaces/fsl/epi.py"
     },
     {
         "name": "TOPUP",
@@ -8931,129 +8911,52 @@
         "url": "https://github.com/nipy/nipype/blob/master/nipype/interfaces/fsl/epi.py"
     },
     {
-        "name": "ApplyTOPUP",
-        "command-line": "applytopup [DATATYPE] [ENCODING_FILE] [IN_FILES] [IN_INDEX] [IN_TOPUP_FIELDCOEF] [INTERP] [METHOD] [OUT_CORRECTED]",
-        "author": "Nipype (interface), Oxford Centre for Functional MRI of the Brain (FMRIB) (tool)",
-        "description": "ApplyTOPUP, as implemented in Nipype (module: nipype.interfaces.fsl, interface: ApplyTOPUP).",
+        "tool-version": "1.0.0",
+        "description": "Concatenate multiple ANTs warping fields using ComposeMultiTransform.\n\nFor instance if you have\n- Warping field: anatomical to MNI template\n- Affine matrix: Diffusion to anatomical\nYou can obtain the transform diffusion to MNI template\n\n\nComposeMultiTransform ImageDimension output_field [-R reference_image] {[deformation_field | [-i] affine_transform_txt ]}\n  Usage has the same form as WarpImageMultiTransform\n For Example:\n\nComposeMultiTransform Dimension  outwarp.nii   -R template.nii   ExistingWarp.nii  ExistingAffine.nii\n or for an inverse mapping :\nComposeMultiTransform Dimension  outwarp.nii   -R template.nii   -i ExistingAffine.nii ExistingInverseWarp.nii\n recalling that the -i option takes the inverse of the affine mapping\n\nOr: to compose multiple affine text file into one:\nComposeMultiTransform ImageDimension output_affine_txt [-R reference_affine_txt] {[-i] affine_transform_txt}\nThis will be evoked if a text file is given as the second parameter. In this case reference_affine_txt is used to define the center of the output affine.  The default reference is the first given affine text file. This ignores all non-txt files among the following parameters.\n\n",
+        "command-line": "ComposeMultiTransform 3 [OUPUT_WARPING_FIELD] -R [REFERENCE_IMAGE] [1ST_WARPING_FIELD__OR_AFFINE_MATRIX_] [2ND_WARPING_FIELD]",
+        "author": "TONIC",
+        "container-image": {
+            "image": "bids/mrtrix3_connectome",
+            "type": "docker"
+        },
         "inputs": [
             {
-                "id": "datatype",
-                "name": "Datatype",
-                "type": "String",
-                "value-key": "[DATATYPE]",
-                "command-line-flag": "--datatype",
-                "command-line-flag-separator": "=",
-                "description": "'char' or 'short' or 'int' or 'float' or 'double'. Force output data type.",
-                "optional": true,
-                "value-choices": [
-                    "char",
-                    "short",
-                    "int",
-                    "float",
-                    "double"
-                ]
-            },
-            {
-                "id": "encoding_file",
-                "name": "Encoding file",
+                "description": "Reference Image",
+                "value-key": "[REFERENCE_IMAGE]",
                 "type": "File",
-                "value-key": "[ENCODING_FILE]",
-                "command-line-flag": "--datain",
-                "command-line-flag-separator": "=",
-                "description": "An existing file name. Name of text file with pe directions/times.",
-                "optional": false
+                "optional": false,
+                "id": "reference_image",
+                "name": "Reference Image"
             },
             {
-                "id": "in_files",
-                "name": "In files",
+                "description": "1st warping field (or affine matrix)",
+                "value-key": "[1ST_WARPING_FIELD__OR_AFFINE_MATRIX_]",
                 "type": "File",
-                "list": true,
-                "list-separator": ",",
-                "value-key": "[IN_FILES]",
-                "command-line-flag": "--imain",
-                "command-line-flag-separator": "=",
-                "description": "A list of items which are an existing file name. Name of file with images.",
-                "optional": false
+                "optional": false,
+                "id": "1st_warping_field__or_affine_matrix_",
+                "name": "1st warping field (or affine matrix)"
             },
             {
-                "id": "in_index",
-                "name": "In index",
-                "type": "Number",
-                "list": true,
-                "integer": true,
-                "list-separator": ",",
-                "value-key": "[IN_INDEX]",
-                "command-line-flag": "--inindex",
-                "command-line-flag-separator": "=",
-                "description": "A list of items which are an integer (int or long). Comma separated list of indices corresponding to --datain.",
-                "optional": false
-            },
-            {
-                "id": "in_topup_fieldcoef",
-                "name": "In topup fieldcoef",
+                "description": "2nd warping field",
+                "value-key": "[2ND_WARPING_FIELD]",
                 "type": "File",
-                "value-key": "[IN_TOPUP_FIELDCOEF]",
-                "command-line-flag": "--topup",
-                "command-line-flag-separator": "=",
-                "description": "An existing file name. Topup file containing the field coefficients.",
-                "optional": false
-            },
-            {
-                "id": "interp",
-                "name": "Interp",
-                "type": "String",
-                "value-key": "[INTERP]",
-                "command-line-flag": "--interp",
-                "command-line-flag-separator": "=",
-                "description": "'trilinear' or 'spline'. Interpolation method.",
-                "optional": true,
-                "value-choices": [
-                    "trilinear",
-                    "spline"
-                ]
-            },
-            {
-                "id": "method",
-                "name": "Method",
-                "type": "String",
-                "value-key": "[METHOD]",
-                "command-line-flag": "--method",
-                "command-line-flag-separator": "=",
-                "description": "'jac' or 'lsr'. Use jacobian modulation (jac) or least-squares resampling (lsr).",
-                "optional": true,
-                "value-choices": [
-                    "jac",
-                    "lsr"
-                ]
+                "optional": false,
+                "id": "2nd_warping_field",
+                "name": "2nd warping field"
             }
         ],
+        "schema-version": "0.5",
         "output-files": [
             {
-                "name": "Out corrected",
-                "id": "out_corrected",
-                "path-template": "out_corrected",
+                "description": "Ouput warping field",
+                "value-key": "[OUPUT_WARPING_FIELD]",
+                "path-template": "./",
                 "optional": false,
-                "description": "An existing file name. Name of 4d image file with unwarped images.",
-                "value-key": "[OUT_CORRECTED]",
-                "command-line-flag": "--out",
-                "command-line-flag-separator": "="
+                "id": "ouput_warping_field",
+                "name": "Ouput warping field"
             }
         ],
-        "tool-version": "1.0.0",
-        "schema-version": "0.5",
-        "container-image": {
-            "image": "mcin/docker-fsl:latest",
-            "type": "docker",
-            "index": "index.docker.io"
-        },
-        "tags": {
-            "domain": [
-                "neuroinformatics",
-                "dmri"
-            ],
-            "source": "nipype-interface"
-        },
-        "url": "https://github.com/nipy/nipype/blob/master/nipype/interfaces/fsl/epi.py"
+        "name": "ConcatTransfo"
     },
     {
         "name": "CompositeTransformUtil",
@@ -9144,6 +9047,397 @@
         },
         "tags": {
             "domain": "neuroinformatics",
+            "source": "nipype-interface"
+        }
+    },
+    {
+        "name": "LaplacianThickness",
+        "command-line": "${ANTSPATH}/LaplacianThickness [INPUT_WM] [INPUT_GM] [OUTPUT_IMAGE] [SMOOTH_PARAM] [PRIOR_THICKNESS] [DT] [SULCUS_PRIOR] [TOLERANCE]",
+        "author": "Nipype (interface), Brian B. Avants et al. (tool)",
+        "description": "LaplacianThickness, as implemented in Nipype (module: nipype.interfaces.ants, interface: LaplacianThickness).",
+        "inputs": [
+            {
+                "id": "dT",
+                "name": "Dt",
+                "type": "Number",
+                "value-key": "[DT]",
+                "description": "A float. Time delta used during integration (defaults to 0.01).",
+                "optional": true,
+                "requires-inputs": [
+                    "prior_thickness"
+                ]
+            },
+            {
+                "id": "input_gm",
+                "name": "Input gm",
+                "type": "File",
+                "value-key": "[INPUT_GM]",
+                "description": "A file name. Gray matter segmentation image.",
+                "optional": false
+            },
+            {
+                "id": "input_wm",
+                "name": "Input wm",
+                "type": "File",
+                "value-key": "[INPUT_WM]",
+                "description": "A file name. White matter segmentation image.",
+                "optional": false
+            },
+            {
+                "id": "prior_thickness",
+                "name": "Prior thickness",
+                "type": "Number",
+                "value-key": "[PRIOR_THICKNESS]",
+                "description": "A float. Prior thickness (defaults to 500).",
+                "optional": true,
+                "requires-inputs": [
+                    "smooth_param"
+                ]
+            },
+            {
+                "id": "smooth_param",
+                "name": "Smooth param",
+                "type": "Number",
+                "value-key": "[SMOOTH_PARAM]",
+                "description": "A float. Sigma of the laplacian recursive image filter (defaults to 1).",
+                "optional": true
+            },
+            {
+                "id": "sulcus_prior",
+                "name": "Sulcus prior",
+                "type": "Number",
+                "value-key": "[SULCUS_PRIOR]",
+                "description": "A float. Positive floating point number for sulcus prior. Authors said that 0.15 might be a reasonable value.",
+                "optional": true,
+                "requires-inputs": [
+                    "dT"
+                ]
+            },
+            {
+                "id": "tolerance",
+                "name": "Tolerance",
+                "type": "Number",
+                "value-key": "[TOLERANCE]",
+                "description": "A float. Tolerance to reach during optimization (defaults to 0.001).",
+                "optional": true,
+                "requires-inputs": [
+                    "sulcus_prior"
+                ]
+            }
+        ],
+        "output-files": [
+            {
+                "name": "Output image",
+                "id": "output_image",
+                "optional": true,
+                "description": "An existing file name. Cortical thickness.",
+                "path-template": "[INPUT_WM]_thickness",
+                "value-key": "[OUTPUT_IMAGE]"
+            }
+        ],
+        "tool-version": "1.0.0",
+        "schema-version": "0.5",
+        "container-image": {
+            "image": "bt5e/ants:latest",
+            "index": "index.docker.io",
+            "type": "docker"
+        },
+        "tags": {
+            "domain": "neuroinformatics",
+            "source": "nipype-interface"
+        }
+    },
+    {
+        "name": "ApplyWarp",
+        "command-line": "applywarp [INTERP] [IN_FILE] [REF_FILE] [OUT_FILE] [RELWARP] [ABSWARP] [DATATYPE] [FIELD_FILE] [MASK_FILE] [POSTMAT] [PREMAT] [SUPERLEVEL] [SUPERSAMPLE]",
+        "author": "Nipype (interface), Oxford Centre for Functional MRI of the Brain (FMRIB) (tool)",
+        "description": "ApplyWarp, as implemented in Nipype (module: nipype.interfaces.fsl, interface: ApplyWarp).",
+        "url": "https://github.com/nipy/nipype/blob/master/nipype/interfaces/fsl/preprocess.py",
+        "inputs": [
+            {
+                "id": "abswarp",
+                "name": "Abswarp",
+                "type": "Flag",
+                "value-key": "[ABSWARP]",
+                "command-line-flag": "--abs",
+                "description": "A boolean. Treat warp field as absolute: x' = w(x).",
+                "optional": true
+            },
+            {
+                "id": "datatype",
+                "name": "Datatype",
+                "type": "String",
+                "value-key": "[DATATYPE]",
+                "command-line-flag": "--datatype",
+                "command-line-flag-separator": "=",
+                "description": "'char' or 'short' or 'int' or 'float' or 'double'. Force output data type [char short int float double].",
+                "optional": true,
+                "value-choices": [
+                    "char",
+                    "short",
+                    "int",
+                    "float",
+                    "double"
+                ]
+            },
+            {
+                "id": "field_file",
+                "name": "Field file",
+                "type": "File",
+                "value-key": "[FIELD_FILE]",
+                "command-line-flag": "--warp",
+                "command-line-flag-separator": "=",
+                "description": "An existing file name. File containing warp field.",
+                "optional": true
+            },
+            {
+                "id": "in_file",
+                "name": "In file",
+                "type": "File",
+                "value-key": "[IN_FILE]",
+                "command-line-flag": "--in",
+                "command-line-flag-separator": "=",
+                "description": "An existing file name. Image to be warped.",
+                "optional": false
+            },
+            {
+                "id": "interp",
+                "name": "Interp",
+                "type": "String",
+                "value-key": "[INTERP]",
+                "command-line-flag": "--interp",
+                "command-line-flag-separator": "=",
+                "description": "'nn' or 'trilinear' or 'sinc' or 'spline'. Interpolation method.",
+                "optional": true,
+                "value-choices": [
+                    "nn",
+                    "trilinear",
+                    "sinc",
+                    "spline"
+                ]
+            },
+            {
+                "id": "mask_file",
+                "name": "Mask file",
+                "type": "File",
+                "value-key": "[MASK_FILE]",
+                "command-line-flag": "--mask",
+                "command-line-flag-separator": "=",
+                "description": "An existing file name. Filename for mask image (in reference space).",
+                "optional": true
+            },
+            {
+                "id": "out_file",
+                "name": "Out file",
+                "type": "File",
+                "value-key": "[OUT_FILE]",
+                "command-line-flag": "--out",
+                "command-line-flag-separator": "=",
+                "description": "A file name. Output filename.",
+                "optional": false
+            },
+            {
+                "id": "postmat",
+                "name": "Postmat",
+                "type": "File",
+                "value-key": "[POSTMAT]",
+                "command-line-flag": "--postmat",
+                "command-line-flag-separator": "=",
+                "description": "An existing file name. Filename for post-transform (affine matrix).",
+                "optional": true
+            },
+            {
+                "id": "premat",
+                "name": "Premat",
+                "type": "File",
+                "value-key": "[PREMAT]",
+                "command-line-flag": "--premat",
+                "command-line-flag-separator": "=",
+                "description": "An existing file name. Filename for pre-transform (affine matrix).",
+                "optional": true
+            },
+            {
+                "id": "ref_file",
+                "name": "Ref file",
+                "type": "File",
+                "value-key": "[REF_FILE]",
+                "command-line-flag": "--ref",
+                "command-line-flag-separator": "=",
+                "description": "An existing file name. Reference image.",
+                "optional": false
+            },
+            {
+                "id": "relwarp",
+                "name": "Relwarp",
+                "type": "Flag",
+                "value-key": "[RELWARP]",
+                "command-line-flag": "--rel",
+                "description": "A boolean. Treat warp field as relative: x' = x + w(x).",
+                "optional": true
+            },
+            {
+                "id": "superlevel",
+                "name": "Superlevel",
+                "type": "String",
+                "value-key": "[SUPERLEVEL]",
+                "command-line-flag": "--superlevel",
+                "command-line-flag-separator": "=",
+                "description": "'a' or an integer (int or long). Level of intermediary supersampling, a for 'automatic' or integer level. default = 2.",
+                "optional": true,
+                "value-choices": [
+                    "a"
+                ]
+            },
+            {
+                "id": "superlevel_int",
+                "name": "Superlevel",
+                "type": "Number",
+                "integer": true,
+                "value-key": "[SUPERLEVEL]",
+                "command-line-flag": "--superlevel",
+                "command-line-flag-separator": "=",
+                "description": "'a' or an integer (int or long). Level of intermediary supersampling, a for 'automatic' or integer level. default = 2.",
+                "optional": true
+            },
+            {
+                "id": "supersample",
+                "name": "Supersample",
+                "type": "Flag",
+                "value-key": "[SUPERSAMPLE]",
+                "command-line-flag": "--super",
+                "description": "A boolean. Intermediary supersampling of output, default is off.",
+                "optional": true
+            }
+        ],
+        "output-files": [
+            {
+                "name": "Out file",
+                "id": "out_file_outfile",
+                "path-template": "[OUT_FILE]",
+                "optional": true,
+                "description": "An existing file name. Warped output file."
+            }
+        ],
+        "groups": [
+            {
+                "id": "superlevel_group",
+                "name": "Superlevel group",
+                "members": [
+                    "superlevel",
+                    "superlevel_int"
+                ],
+                "mutually-exclusive": true
+            },
+            {
+                "id": "mutex_group",
+                "name": "Mutex group",
+                "members": [
+                    "relwarp",
+                    "abswarp"
+                ],
+                "mutually-exclusive": true
+            }
+        ],
+        "tool-version": "1.0.0",
+        "schema-version": "0.5",
+        "container-image": {
+            "image": "mcin/docker-fsl:latest",
+            "type": "docker",
+            "index": "index.docker.io"
+        },
+        "tags": {
+            "domain": [
+                "neuroinformatics",
+                "mri"
+            ],
+            "source": "nipype-interface"
+        }
+    },
+    {
+        "name": "DistanceMap",
+        "command-line": "distancemap  [DISTANCE_MAP] [IN_FILE] [INVERT_INPUT] [LOCAL_MAX_FILE] [MASK_FILE]",
+        "author": "Nipype (interface), Oxford Centre for Functional MRI of the Brain (FMRIB) (tool)",
+        "description": "DistanceMap, as implemented in Nipype (module: nipype.interfaces.fsl, interface: DistanceMap).",
+        "url": "https://github.com/nipy/nipype/blob/master/nipype/interfaces/fsl/dti.py",
+        "inputs": [
+            {
+                "id": "distance_map",
+                "name": "Distance map",
+                "type": "File",
+                "value-key": "[DISTANCE_MAP]",
+                "command-line-flag": "--out",
+                "command-line-flag-separator": "=",
+                "description": "A file name. Distance map to write.",
+                "optional": false
+            },
+            {
+                "id": "in_file",
+                "name": "In file",
+                "type": "File",
+                "value-key": "[IN_FILE]",
+                "command-line-flag": "--in",
+                "command-line-flag-separator": "=",
+                "description": "An existing file name. Image to calculate distance values for.",
+                "optional": false
+            },
+            {
+                "id": "invert_input",
+                "name": "Invert input",
+                "type": "Flag",
+                "value-key": "[INVERT_INPUT]",
+                "command-line-flag": "--invert",
+                "description": "A boolean. Invert input image.",
+                "optional": true
+            },
+            {
+                "id": "local_max_file",
+                "name": "Local max file",
+                "type": "File",
+                "value-key": "[LOCAL_MAX_FILE]",
+                "command-line-flag": "--localmax",
+                "command-line-flag-separator": "=",
+                "description": "An existing file name. Write an image of the local maxima.",
+                "optional": true
+            },
+            {
+                "id": "mask_file",
+                "name": "Mask file",
+                "type": "File",
+                "value-key": "[MASK_FILE]",
+                "command-line-flag": "--mask",
+                "command-line-flag-separator": "=",
+                "description": "An existing file name. Binary mask to contrain calculations.",
+                "optional": true
+            }
+        ],
+        "output-files": [
+            {
+                "name": "Distance map",
+                "id": "distance_map_outfile",
+                "path-template": "[DISTANCE_MAP]",
+                "optional": true,
+                "description": "An existing file name. Value is distance to nearest nonzero voxels."
+            },
+            {
+                "name": "Local max file",
+                "id": "local_max_file_outfile",
+                "path-template": "[LOCAL_MAX_FILE]",
+                "optional": true,
+                "description": "A file name. Image of local maxima."
+            }
+        ],
+        "tool-version": "1.0.0",
+        "schema-version": "0.5",
+        "container-image": {
+            "image": "mcin/docker-fsl:latest",
+            "type": "docker",
+            "index": "index.docker.io"
+        },
+        "tags": {
+            "domain": [
+                "neuroinformatics",
+                "mri"
+            ],
             "source": "nipype-interface"
         }
     },
@@ -9438,300 +9732,6 @@
             "cpu-cores": 8
         },
         "name": "workflow generated from dataset:5c0c06e6f6f108004b490e2a"
-    },
-    {
-        "name": "DistanceMap",
-        "command-line": "distancemap  [DISTANCE_MAP] [IN_FILE] [INVERT_INPUT] [LOCAL_MAX_FILE] [MASK_FILE]",
-        "author": "Nipype (interface), Oxford Centre for Functional MRI of the Brain (FMRIB) (tool)",
-        "description": "DistanceMap, as implemented in Nipype (module: nipype.interfaces.fsl, interface: DistanceMap).",
-        "url": "https://github.com/nipy/nipype/blob/master/nipype/interfaces/fsl/dti.py",
-        "inputs": [
-            {
-                "id": "distance_map",
-                "name": "Distance map",
-                "type": "File",
-                "value-key": "[DISTANCE_MAP]",
-                "command-line-flag": "--out",
-                "command-line-flag-separator": "=",
-                "description": "A file name. Distance map to write.",
-                "optional": false
-            },
-            {
-                "id": "in_file",
-                "name": "In file",
-                "type": "File",
-                "value-key": "[IN_FILE]",
-                "command-line-flag": "--in",
-                "command-line-flag-separator": "=",
-                "description": "An existing file name. Image to calculate distance values for.",
-                "optional": false
-            },
-            {
-                "id": "invert_input",
-                "name": "Invert input",
-                "type": "Flag",
-                "value-key": "[INVERT_INPUT]",
-                "command-line-flag": "--invert",
-                "description": "A boolean. Invert input image.",
-                "optional": true
-            },
-            {
-                "id": "local_max_file",
-                "name": "Local max file",
-                "type": "File",
-                "value-key": "[LOCAL_MAX_FILE]",
-                "command-line-flag": "--localmax",
-                "command-line-flag-separator": "=",
-                "description": "An existing file name. Write an image of the local maxima.",
-                "optional": true
-            },
-            {
-                "id": "mask_file",
-                "name": "Mask file",
-                "type": "File",
-                "value-key": "[MASK_FILE]",
-                "command-line-flag": "--mask",
-                "command-line-flag-separator": "=",
-                "description": "An existing file name. Binary mask to contrain calculations.",
-                "optional": true
-            }
-        ],
-        "output-files": [
-            {
-                "name": "Distance map",
-                "id": "distance_map_outfile",
-                "path-template": "[DISTANCE_MAP]",
-                "optional": true,
-                "description": "An existing file name. Value is distance to nearest nonzero voxels."
-            },
-            {
-                "name": "Local max file",
-                "id": "local_max_file_outfile",
-                "path-template": "[LOCAL_MAX_FILE]",
-                "optional": true,
-                "description": "A file name. Image of local maxima."
-            }
-        ],
-        "tool-version": "1.0.0",
-        "schema-version": "0.5",
-        "container-image": {
-            "image": "mcin/docker-fsl:latest",
-            "type": "docker",
-            "index": "index.docker.io"
-        },
-        "tags": {
-            "domain": [
-                "neuroinformatics",
-                "mri"
-            ],
-            "source": "nipype-interface"
-        }
-    },
-    {
-        "name": "ApplyWarp",
-        "command-line": "applywarp [INTERP] [IN_FILE] [REF_FILE] [OUT_FILE] [RELWARP] [ABSWARP] [DATATYPE] [FIELD_FILE] [MASK_FILE] [POSTMAT] [PREMAT] [SUPERLEVEL] [SUPERSAMPLE]",
-        "author": "Nipype (interface), Oxford Centre for Functional MRI of the Brain (FMRIB) (tool)",
-        "description": "ApplyWarp, as implemented in Nipype (module: nipype.interfaces.fsl, interface: ApplyWarp).",
-        "url": "https://github.com/nipy/nipype/blob/master/nipype/interfaces/fsl/preprocess.py",
-        "inputs": [
-            {
-                "id": "abswarp",
-                "name": "Abswarp",
-                "type": "Flag",
-                "value-key": "[ABSWARP]",
-                "command-line-flag": "--abs",
-                "description": "A boolean. Treat warp field as absolute: x' = w(x).",
-                "optional": true
-            },
-            {
-                "id": "datatype",
-                "name": "Datatype",
-                "type": "String",
-                "value-key": "[DATATYPE]",
-                "command-line-flag": "--datatype",
-                "command-line-flag-separator": "=",
-                "description": "'char' or 'short' or 'int' or 'float' or 'double'. Force output data type [char short int float double].",
-                "optional": true,
-                "value-choices": [
-                    "char",
-                    "short",
-                    "int",
-                    "float",
-                    "double"
-                ]
-            },
-            {
-                "id": "field_file",
-                "name": "Field file",
-                "type": "File",
-                "value-key": "[FIELD_FILE]",
-                "command-line-flag": "--warp",
-                "command-line-flag-separator": "=",
-                "description": "An existing file name. File containing warp field.",
-                "optional": true
-            },
-            {
-                "id": "in_file",
-                "name": "In file",
-                "type": "File",
-                "value-key": "[IN_FILE]",
-                "command-line-flag": "--in",
-                "command-line-flag-separator": "=",
-                "description": "An existing file name. Image to be warped.",
-                "optional": false
-            },
-            {
-                "id": "interp",
-                "name": "Interp",
-                "type": "String",
-                "value-key": "[INTERP]",
-                "command-line-flag": "--interp",
-                "command-line-flag-separator": "=",
-                "description": "'nn' or 'trilinear' or 'sinc' or 'spline'. Interpolation method.",
-                "optional": true,
-                "value-choices": [
-                    "nn",
-                    "trilinear",
-                    "sinc",
-                    "spline"
-                ]
-            },
-            {
-                "id": "mask_file",
-                "name": "Mask file",
-                "type": "File",
-                "value-key": "[MASK_FILE]",
-                "command-line-flag": "--mask",
-                "command-line-flag-separator": "=",
-                "description": "An existing file name. Filename for mask image (in reference space).",
-                "optional": true
-            },
-            {
-                "id": "out_file",
-                "name": "Out file",
-                "type": "File",
-                "value-key": "[OUT_FILE]",
-                "command-line-flag": "--out",
-                "command-line-flag-separator": "=",
-                "description": "A file name. Output filename.",
-                "optional": false
-            },
-            {
-                "id": "postmat",
-                "name": "Postmat",
-                "type": "File",
-                "value-key": "[POSTMAT]",
-                "command-line-flag": "--postmat",
-                "command-line-flag-separator": "=",
-                "description": "An existing file name. Filename for post-transform (affine matrix).",
-                "optional": true
-            },
-            {
-                "id": "premat",
-                "name": "Premat",
-                "type": "File",
-                "value-key": "[PREMAT]",
-                "command-line-flag": "--premat",
-                "command-line-flag-separator": "=",
-                "description": "An existing file name. Filename for pre-transform (affine matrix).",
-                "optional": true
-            },
-            {
-                "id": "ref_file",
-                "name": "Ref file",
-                "type": "File",
-                "value-key": "[REF_FILE]",
-                "command-line-flag": "--ref",
-                "command-line-flag-separator": "=",
-                "description": "An existing file name. Reference image.",
-                "optional": false
-            },
-            {
-                "id": "relwarp",
-                "name": "Relwarp",
-                "type": "Flag",
-                "value-key": "[RELWARP]",
-                "command-line-flag": "--rel",
-                "description": "A boolean. Treat warp field as relative: x' = x + w(x).",
-                "optional": true
-            },
-            {
-                "id": "superlevel",
-                "name": "Superlevel",
-                "type": "String",
-                "value-key": "[SUPERLEVEL]",
-                "command-line-flag": "--superlevel",
-                "command-line-flag-separator": "=",
-                "description": "'a' or an integer (int or long). Level of intermediary supersampling, a for 'automatic' or integer level. default = 2.",
-                "optional": true,
-                "value-choices": [
-                    "a"
-                ]
-            },
-            {
-                "id": "superlevel_int",
-                "name": "Superlevel",
-                "type": "Number",
-                "integer": true,
-                "value-key": "[SUPERLEVEL]",
-                "command-line-flag": "--superlevel",
-                "command-line-flag-separator": "=",
-                "description": "'a' or an integer (int or long). Level of intermediary supersampling, a for 'automatic' or integer level. default = 2.",
-                "optional": true
-            },
-            {
-                "id": "supersample",
-                "name": "Supersample",
-                "type": "Flag",
-                "value-key": "[SUPERSAMPLE]",
-                "command-line-flag": "--super",
-                "description": "A boolean. Intermediary supersampling of output, default is off.",
-                "optional": true
-            }
-        ],
-        "output-files": [
-            {
-                "name": "Out file",
-                "id": "out_file_outfile",
-                "path-template": "[OUT_FILE]",
-                "optional": true,
-                "description": "An existing file name. Warped output file."
-            }
-        ],
-        "groups": [
-            {
-                "id": "superlevel_group",
-                "name": "Superlevel group",
-                "members": [
-                    "superlevel",
-                    "superlevel_int"
-                ],
-                "mutually-exclusive": true
-            },
-            {
-                "id": "mutex_group",
-                "name": "Mutex group",
-                "members": [
-                    "relwarp",
-                    "abswarp"
-                ],
-                "mutually-exclusive": true
-            }
-        ],
-        "tool-version": "1.0.0",
-        "schema-version": "0.5",
-        "container-image": {
-            "image": "mcin/docker-fsl:latest",
-            "type": "docker",
-            "index": "index.docker.io"
-        },
-        "tags": {
-            "domain": [
-                "neuroinformatics",
-                "mri"
-            ],
-            "source": "nipype-interface"
-        }
     },
     {
         "tool-version": "mcin/docker-fsl:latest",
@@ -11522,122 +11522,6 @@
         "name": "blastn"
     },
     {
-        "tool-version": "v1.1",
-        "tests": [
-            {
-                "invocation": {
-                    "input": "uniprotminier.fasta"
-                },
-                "name": "test1",
-                "assertions": {
-                    "output-files": [
-                        {
-                            "id": "outmafft_rascal",
-                            "md5-reference": "4b003bebd3fb9722152f65ab5d17c434"
-                        }
-                    ],
-                    "exit-code": 0
-                }
-            }
-        ],
-        "description": "automatic quality improvment for multiple sequence alignment.",
-        "command-line": "AQUA.tcl [INPUT] [OUTPUT_DIR]",
-        "author": "Muller J, Creevey CJ, Thompson JD, Arendt D, Bork P.",
-        "tags": {
-            "domain": [
-                "bioinformatics",
-                "AQUA"
-            ]
-        },
-        "container-image": {
-            "index": "shub://",
-            "image": "bioinformatics-group/aqua-singularity-recipe",
-            "type": "singularity"
-        },
-        "inputs": [
-            {
-                "description": "A file containing the input sequence in fasta format",
-                "value-key": "[INPUT]",
-                "optional": false,
-                "type": "File",
-                "id": "input",
-                "name": "Input Sequence"
-            },
-            {
-                "description": "The directory where the results are stored. The default location is the same directory as the input sequence.",
-                "default-value": ".",
-                "value-key": "[OUTPUT_DIR]",
-                "optional": false,
-                "type": "File",
-                "id": "output_dir",
-                "name": "Output Directory"
-            }
-        ],
-        "schema-version": "0.5",
-        "output-files": [
-            {
-                "path-template": "[OUTPUT_DIR]/[INPUT].muscle",
-                "optional": false,
-                "id": "outmuscle",
-                "name": "Output of muscle results"
-            },
-            {
-                "path-template": "[OUTPUT_DIR]/[INPUT].mafft",
-                "optional": false,
-                "id": "outmafft",
-                "name": "Output of mafft results"
-            },
-            {
-                "path-template": "[OUTPUT_DIR]/[INPUT].muscle.rascal",
-                "optional": false,
-                "id": "outmuscle_rascal",
-                "name": "Output of muscle and rascal results"
-            },
-            {
-                "path-template": "[OUTPUT_DIR]/[INPUT].mafft.rascal",
-                "optional": false,
-                "id": "outmafft_rascal",
-                "name": "Output of mafft and rascal results"
-            },
-            {
-                "path-template": "[OUTPUT_DIR]/[INPUT].muscle.normd",
-                "optional": false,
-                "id": "outmuscle_normd",
-                "name": "Output of muscle and normd results"
-            },
-            {
-                "path-template": "[OUTPUT_DIR]/[INPUT].mafft.normd",
-                "optional": false,
-                "id": "outmafft_normd",
-                "name": "Output of mafft and normd results"
-            },
-            {
-                "path-template": "[OUTPUT_DIR]/[INPUT].muscle.rascal.normd",
-                "optional": false,
-                "id": "outmuscle_rascal_normd",
-                "name": "Output of muscle, rascal and normd results"
-            },
-            {
-                "path-template": "[OUTPUT_DIR]/[INPUT].mafft.rascal.normd",
-                "optional": false,
-                "id": "outmafft_rascal_normd",
-                "name": "Output of mafft, rascal and normd results"
-            },
-            {
-                "path-template": "[OUTPUT_DIR]/[INPUT].best",
-                "optional": false,
-                "id": "outbest",
-                "name": "Output of best results"
-            }
-        ],
-        "suggested-resources": {
-            "walltime-estimate": 60,
-            "ram": 1,
-            "cpu-cores": 1
-        },
-        "name": "AQUA"
-    },
-    {
         "name": "spark",
         "schema-version": "0.5",
         "tool-version": "v1.2.1",
@@ -11867,5 +11751,121 @@
             "ram": 12,
             "walltime-estimate": 100000
         }
+    },
+    {
+        "tool-version": "v1.1",
+        "tests": [
+            {
+                "invocation": {
+                    "input": "uniprotminier.fasta"
+                },
+                "name": "test1",
+                "assertions": {
+                    "output-files": [
+                        {
+                            "id": "outmafft_rascal",
+                            "md5-reference": "4b003bebd3fb9722152f65ab5d17c434"
+                        }
+                    ],
+                    "exit-code": 0
+                }
+            }
+        ],
+        "description": "automatic quality improvment for multiple sequence alignment.",
+        "command-line": "AQUA.tcl [INPUT] [OUTPUT_DIR]",
+        "author": "Muller J, Creevey CJ, Thompson JD, Arendt D, Bork P.",
+        "tags": {
+            "domain": [
+                "bioinformatics",
+                "AQUA"
+            ]
+        },
+        "container-image": {
+            "index": "shub://",
+            "image": "bioinformatics-group/aqua-singularity-recipe",
+            "type": "singularity"
+        },
+        "inputs": [
+            {
+                "description": "A file containing the input sequence in fasta format",
+                "value-key": "[INPUT]",
+                "optional": false,
+                "type": "File",
+                "id": "input",
+                "name": "Input Sequence"
+            },
+            {
+                "description": "The directory where the results are stored. The default location is the same directory as the input sequence.",
+                "default-value": ".",
+                "value-key": "[OUTPUT_DIR]",
+                "optional": false,
+                "type": "File",
+                "id": "output_dir",
+                "name": "Output Directory"
+            }
+        ],
+        "schema-version": "0.5",
+        "output-files": [
+            {
+                "path-template": "[OUTPUT_DIR]/[INPUT].muscle",
+                "optional": false,
+                "id": "outmuscle",
+                "name": "Output of muscle results"
+            },
+            {
+                "path-template": "[OUTPUT_DIR]/[INPUT].mafft",
+                "optional": false,
+                "id": "outmafft",
+                "name": "Output of mafft results"
+            },
+            {
+                "path-template": "[OUTPUT_DIR]/[INPUT].muscle.rascal",
+                "optional": false,
+                "id": "outmuscle_rascal",
+                "name": "Output of muscle and rascal results"
+            },
+            {
+                "path-template": "[OUTPUT_DIR]/[INPUT].mafft.rascal",
+                "optional": false,
+                "id": "outmafft_rascal",
+                "name": "Output of mafft and rascal results"
+            },
+            {
+                "path-template": "[OUTPUT_DIR]/[INPUT].muscle.normd",
+                "optional": false,
+                "id": "outmuscle_normd",
+                "name": "Output of muscle and normd results"
+            },
+            {
+                "path-template": "[OUTPUT_DIR]/[INPUT].mafft.normd",
+                "optional": false,
+                "id": "outmafft_normd",
+                "name": "Output of mafft and normd results"
+            },
+            {
+                "path-template": "[OUTPUT_DIR]/[INPUT].muscle.rascal.normd",
+                "optional": false,
+                "id": "outmuscle_rascal_normd",
+                "name": "Output of muscle, rascal and normd results"
+            },
+            {
+                "path-template": "[OUTPUT_DIR]/[INPUT].mafft.rascal.normd",
+                "optional": false,
+                "id": "outmafft_rascal_normd",
+                "name": "Output of mafft, rascal and normd results"
+            },
+            {
+                "path-template": "[OUTPUT_DIR]/[INPUT].best",
+                "optional": false,
+                "id": "outbest",
+                "name": "Output of best results"
+            }
+        ],
+        "suggested-resources": {
+            "walltime-estimate": 60,
+            "ram": 1,
+            "cpu-cores": 1
+        },
+        "name": "AQUA"
     }
 ]
