@@ -28,7 +28,7 @@ Highcharts.chart('chart', {
     }],
 
     xAxis: {
-    categories: ["January'19", "February'19", "March'19","April'19"]
+    categories: ["April'19", "May'19", "June'19", "July'19"]
     },
 
     plotOptions: {
@@ -41,10 +41,10 @@ Highcharts.chart('chart', {
 
     series: [{
         name: 'CONP Datasets',
-        data: [0, 0, 0, 6]
+        data: [6, 7, 10, 10]
     }, {
         name: 'CONP Pipelines',
-        data: [0, 0, 0, 0],
+        data: [0, 0, 45, 45],
         yAxis: 1
     }]
 
