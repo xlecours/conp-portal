@@ -8,7 +8,7 @@ import os
 from datetime import datetime, timedelta
 
 import requests
-from flask import Response, abort, render_template, request
+from flask import Response, abort, render_template, request, jsonify
 from flask_login import current_user
 from sqlalchemy import func, or_
 
@@ -31,7 +31,7 @@ def search():
     return render_template('search.html', title='CONP | Search', user=current_user)
 
 
-def get_datset_logo(dataset_id):
+def get_dataset_logo(dataset_id):
     """
         Gets data set logos that are statically stored in the portal
         TODO: This should not be static, should be a fucntion the dataset in the database
@@ -89,7 +89,6 @@ def dataset_search():
 
     # Element input for payload
     elements = []
-
     # Build dataset response
     for d in datasets:
         dataset = {
@@ -97,7 +96,7 @@ def dataset_search():
             "id": d.dataset_id,
             "title": d.name.replace("'", ""),
             "isPrivate": d.is_private,
-            "thumbnailURL": get_datset_logo(d.dataset_id),
+            "thumbnailURL": get_dataset_logo(d.dataset_id),
             "imagePath": "/static/img/",
             "downloadPath": "/static/data/projects/" + d.download_path,
             "URL": d.raw_data_url,
@@ -232,6 +231,7 @@ def dataset_info():
 
     # Query dataset
     dataset = Dataset.query.filter_by(dataset_id=dataset_id).first()
+    datasetstats = DatasetStats.query.filter_by(dataset_id=dataset.dataset_id).first()
 
     if current_user.is_authenticated:
         authorized = True
@@ -243,35 +243,21 @@ def dataset_info():
         "id": dataset.dataset_id,
         "title": dataset.name.replace("'", ""),
         "isPrivate": dataset.is_private,
-        "thumbnailURL": get_datset_logo(dataset.dataset_id),
+        "thumbnailURL": get_dataset_logo(dataset.dataset_id),
         "imagePath": "/static/img/",
         "downloadPath": "/static/data/projects/" + dataset.download_path,
         "URL": dataset.raw_data_url,
-        "downloads": DatasetStats.query
-                                 .filter_by(dataset_id=dataset.dataset_id)
-                                 .first().num_downloads,
-        "views": DatasetStats.query
-                             .filter_by(dataset_id=dataset.dataset_id)
-                             .first().num_views,
-        "likes": DatasetStats.query
-                             .filter_by(dataset_id=dataset.dataset_id)
-                             .first().num_likes,
+        "downloads": datasetstats.num_downloads,
+        "views": datasetstats.num_views,
+        "likes": datasetstats.num_likes,
         "dateAdded": str(dataset.date_created.date()),
         "dateUpdated": str(dataset.date_updated.date()),
-        "size": DatasetStats.query
-                            .filter_by(dataset_id=dataset.dataset_id)
-                            .first().size,
-        "files": DatasetStats.query
-                             .filter_by(dataset_id=dataset.dataset_id)
-                             .first().files,
-        "subjects": DatasetStats.query
-                                .filter_by(dataset_id=dataset.dataset_id)
-                                .first().num_subjects,
+        "size": datasetstats.size,
+        "files": datasetstats.files,
+        "subjects": datasetstats.num_subjects,
         "format": dataset.format.replace("'", ""),
         "modalities": dataset.modality.replace("'", ""),
-        "sources": DatasetStats.query
-                               .filter_by(dataset_id=dataset.dataset_id)
-                               .first().sources
+        "sources": datasetstats.sources
     }
 
     metadata = get_dataset_metadata_information(dataset)
@@ -297,23 +283,11 @@ def download_metadata():
     """
 
     directory = os.path.basename(request.args.get('dataset'))
-    root_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                 'static/data/projects/')
-    dataset_path = os.path.abspath(
-        os.path.normpath(os.path.join(root_path, directory)))
+    url = 'https://raw.githubusercontent.com/conpdatasets/' + directory + '/master/dats.json'
 
-    if not dataset_path.startswith(os.path.abspath(root_path)+os.sep):
-        abort(404)
-        return
-
-        url = 'https://github.com/conpdatasets/' + directory + '/archive/master.zip'
-
-        r = requests.get(url)
-        if r.status_code == 200:
-            return Response(r.content,
-                            mimetype='application/zip',
-                            headers={'Content-Disposition': 'attachment;filename=data.zip'})
-
+    r = requests.get(url)
+    print(r)
+    return jsonify(r.content.decode('ascii'))
 
 def get_dataset_metadata_information(dataset):
     """
