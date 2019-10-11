@@ -72,9 +72,7 @@ class UpdateDatasets(threading.Thread):
     def run(self):
         try:
             # if cache directory doesn't exist then create it
-            print(self.cache_dir)
             if not os.path.exists(self.cache_dir):
-                print('yo')
                 os.makedirs(self.cache_dir)
 
             # first search for all descriptors
@@ -84,7 +82,6 @@ class UpdateDatasets(threading.Thread):
             )
 
             all_descriptors_filepath = os.path.join(self.cache_dir, "all_descriptors.json")
-            print('here')
             with open(all_descriptors_filepath, "w") as f:
                 json.dump(datasets, f, indent=4)
 
