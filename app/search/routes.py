@@ -8,12 +8,14 @@ import os
 from datetime import datetime, timedelta
 
 import requests
-from flask import Response, abort, render_template, request, jsonify
+from flask import Response, abort, render_template, request, jsonify, flash
 from flask_login import current_user
 from sqlalchemy import func, or_
 
 from app.models import Dataset, DatasetStats, User
 from app.search import search_bp
+from app.threads import UpdateDatasets
+from app import config
 
 
 @search_bp.route('/search')
@@ -28,6 +30,12 @@ def search():
         Retuns:
             JSON containing the matching datasets
     """
+    '''
+    This should be put in a cron job
+    thr = UpdateDatasets(config.DATA_PATH)
+    thr.start()
+    thr.join()
+    '''
     return render_template('search.html', title='CONP | Search', user=current_user)
 
 
@@ -91,6 +99,8 @@ def dataset_search():
     elements = []
     # Build dataset response
     for d in datasets:
+        datasetstats = DatasetStats.query.filter_by(dataset_id=d.dataset_id).first()
+
         dataset = {
             "authorized": authorized,
             "id": d.dataset_id,
@@ -100,38 +110,17 @@ def dataset_search():
             "imagePath": "/static/img/",
             "downloadPath": "/static/data/projects/" + d.download_path,
             "URL": d.raw_data_url,
-            "downloads": DatasetStats
-                            .query
-                            .filter_by(dataset_id=d.dataset_id)
-                            .first().num_downloads,
-            "views": DatasetStats
-            .query
-            .filter_by(dataset_id=d.dataset_id)
-                    .first().num_views,
-            "likes": DatasetStats
-                    .query
-                    .filter_by(dataset_id=d.dataset_id)
-                    .first().num_likes,
+            "downloads": datasetstats.num_downloads,
+            "views": datasetstats.num_views,
+            "likes": datasetstats.num_likes,
             "dateAdded": str(d.date_created.date()),
             "dateUpdated": str(d.date_updated.date()),
-            "size": DatasetStats
-            .query
-            .filter_by(dataset_id=d.dataset_id)
-            .first().size,
-            "files": DatasetStats
-            .query
-                    .filter_by(dataset_id=d.dataset_id)
-                    .first().files,
-            "subjects": DatasetStats
-            .query
-            .filter_by(dataset_id=d.dataset_id)
-            .first().num_subjects,
+            "size": datasetstats.size,
+            "files": datasetstats.files,
+            "subjects": datasetstats.num_subjects,
             "format": d.format.replace("'", ""),
             "modalities": d.modality.replace("'", ""),
-            "sources": DatasetStats
-            .query
-            .filter_by(dataset_id=d.dataset_id)
-            .first().sources,
+            "sources": datasetstats.sources,
         }
         elements.append(dataset)
 
@@ -301,22 +290,14 @@ def get_dataset_metadata_information(dataset):
 
     """
     directory = os.path.basename(dataset['downloadPath'])
-    root_path = os.path.join(os.path.dirname(
-        os.path.abspath(__file__)), 'static/data/projects/')
-    dataset_path = os.path.abspath(
-        os.path.normpath(os.path.join(root_path, directory)))
+    print(directory)
+    url = 'https://raw.githubusercontent.com/conpdatasets/' + directory + '/master/dats.json'
+    response = requests.get(url)
 
-    descriptor_path = dataset_path + '/descriptor.json'
+    if not response.status_code == requests.codes.ok:
+         flash(response.text, "message")
+         return jsonify([]) 
 
-    with open(descriptor_path, 'r') as json_file:
-        data = json.load(json_file)
-
-        payload = {
-            "authors": data['authors'],
-            "description": data['description'],
-            "contact": data['contact'],
-            "version": "1.0",
-            "licenses": data['licenses']
-        }
-
-    return payload
+    return json.loads(
+        response.content.decode('ascii')
+    )

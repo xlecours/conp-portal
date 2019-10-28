@@ -9,7 +9,8 @@ import click
 import csv
 from datetime import datetime, timedelta
 from pytz import timezone
-from app.threads import UpdatePipelineData
+from app.threads import UpdatePipelineData, UpdateDatasets
+from app import config
 
 
 def register(app):
@@ -49,6 +50,10 @@ def register(app):
         Wrapper to call the updating to the pipeline data
         """
         _update_pipeline_data(app)
+
+    @app.cli.command('refresh_datasets')
+    def refresh_datasets():
+        _refresh_datasets(app)
 
 
 def _seed_aff_types_db(app):
@@ -140,6 +145,7 @@ def _seed_test_datasets_db(app):
             )
 
             db.session.add(dataset)
+
         db.session.commit()
 
         dataset_stats_csvfile = os.path.join(
@@ -169,7 +175,13 @@ def _update_pipeline_data(app):
     """
     Updates from Zenodo the available pipelines
     """
-    thr = UpdatePipelineData(path=os.path.join(os.path.expanduser('-'),
+    thr = UpdatePipelineData(path=os.path.join(os.path.expanduser('~'),
                                                ".cache", "boutiques"))
+    thr.start()
+    thr.join()
+
+def _refresh_datasets(app):
+    thr = UpdateDatasets(config.DATA_PATH)
+
     thr.start()
     thr.join()

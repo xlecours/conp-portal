@@ -10,7 +10,8 @@ import json
 import os
 import logging
 import requests
-
+from datalad import api
+from datalad.api import Dataset as DataladDataset
 
 class UpdatePipelineData(threading.Thread):
     """
@@ -67,23 +68,53 @@ class UpdateDatasets(threading.Thread):
         if not os.path.exists('logs'):
             os.makedirs('logs')
         logging.basicConfig(filename='logs/update_datasets_thread.log', level=logging.INFO)
-        self.cache_dir = path
+        self.datasetspath = path
+
+    def find(self, pattern, path):
+        import fnmatch
+        result = []
+        for file in os.listdir(path):
+            if fnmatch.fnmatch(file, pattern):
+                result.append(file)
+        return result
 
     def run(self):
+        from app import db
+        from app.models import User, Dataset, DatasetStats
+        from datalad import api
+        from datalad.api import Dataset as DataladDataset
+        from datetime import datetime
+
         try:
-            # if cache directory doesn't exist then create it
-            if not os.path.exists(self.cache_dir):
-                os.makedirs(self.cache_dir)
+            '''
+             Instanciate the CONP dataset
+            '''
+            d = DataladDataset(path=self.datasetspath)
+            if not d.is_installed():
+                d.install(path='', recursive=True)
 
-            # first search for all descriptors
-            datasets = json.loads(
-                requests.get('https://api.github.com/orgs/conpdatasets/repos')
-                .content.decode('ascii')
-            )
+            d.install(path='', recursive=True)
 
-            all_descriptors_filepath = os.path.join(self.cache_dir, "all_descriptors.json")
-            with open(all_descriptors_filepath, "w") as f:
-                json.dump(datasets, f, indent=4)
+            try:
+                d.update(path='')
+            except Exception as e:
+                logging.exception("An exception occurred in datalad update")
+
+            for ds in d.subdatasets():
+                print(ds['gitmodule_name'])
+                subdataset = DataladDataset(path=ds['path'])
+                if not subdataset.is_installed():
+                    subdataset.install(path='', recursive=True)
+
+                dataset = Dataset(
+                    download_path=ds['path'],
+                    name=ds['gitmodule_name'],
+                    date_created=datetime.utcnow(),
+                    date_updated=datetime.utcnow(),
+                )
+                db.session.add(dataset)
+
+            db.session.commit()
 
         except Exception as e:
             logging.exception("An exception occurred in the thread.")
