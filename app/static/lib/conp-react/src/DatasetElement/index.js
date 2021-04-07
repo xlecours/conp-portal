@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserLock } from '@fortawesome/free-solid-svg-icons'
 import { faUserAlt } from '@fortawesome/free-solid-svg-icons'
-import { faFileCode } from '@fortawesome/free-regular-svg-icons'
+
+import ViewsIcon from '../social/ViewsIcon'
 
 const DatasetElement = props => {
   const { authorized, imagePath, ...element } = props;
@@ -38,12 +39,21 @@ const DatasetElement = props => {
     setMetadataErrorState(false)
 
     fetch(`${window.origin}/download_metadata?dataset=${element.id}`)
-      .then(response => response.json())
-      .then(json => {
-        var file = window.URL.createObjectURL(new Blob([json], { type: 'application/json' }),);
+      .then((response) => {
+        if (response.ok) {
+          return response.blob();
+        }
+        else {
+          return response.text().then(text => {
+            throw new Error(text)
+          })
+        }
+      })
+      .then(function (blob) {
+        var file = window.URL.createObjectURL(blob, { type: 'application/json' });
         let link = document.createElement('a');
         link.href = file;
-        link.download = `${element.title.toLowerCase().replace(" ", ",")}.dats.json`;
+        link.download = `${element.title.toLowerCase().replace(" ", "_")}.dats.json`;
         link.click();
 
         // For Firefox it is necessary to delay revoking the ObjectURL.
@@ -107,7 +117,8 @@ const DatasetElement = props => {
             />
           </div>
           <div className="flex-grow-1 d-flex flex-row align-items-end">
-            {element.conpStatus !== 'external' ? (<img height="32" width="32" src={statusCONP} alt="CONP status" />) : <div style={{ width: 32 }} />}
+            {element.conpStatus !== 'external' ? (<img height="36" width="36" src={statusCONP} alt="CONP status" />) : <div style={{ width: 36 }} />}
+            <ViewsIcon type="dataset" id={element.id} />
           </div>
         </div>
         <div className="col col-lg-8 card-body d-flex">

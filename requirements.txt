@@ -51,7 +51,7 @@ importlib-metadata==3.7.0
 iso8601==0.1.12
 itsdangerous==1.1.0
 jeepney==0.4.1
-Jinja2==2.10.1
+Jinja2==2.11.3
 jsmin==2.2.2
 jsonschema==3.0.2
 keyring==19.2.0
@@ -78,7 +78,7 @@ pycodestyle==2.6.0
 pycparser==2.19
 pyflakes==2.2.0
 PyGithub==1.44.1
-Pygments==2.3.1
+Pygments==2.7.4
 PyJWT==1.7.1
 PyMySQL==0.9.3
 pyparsing==2.3.1
@@ -92,7 +92,7 @@ python-dateutil==2.8.0
 python-dotenv==0.9.1
 python-editor==1.0.4
 pytz==2018.9
-PyYAML==5.1.2
+PyYAML==5.4
 rauth==0.7.3
 recommonmark==0.5.0
 requests==2.21.0

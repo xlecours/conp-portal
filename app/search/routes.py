@@ -554,6 +554,7 @@ def get_dataset_metadata_information(dataset):
         "isAbout": datsdataset.isAbout,
         "acknowledges": datsdataset.acknowledges,
         "spatialCoverage": datsdataset.spatialCoverage,
+        "dates": datsdataset.dates,
     }
 
 
