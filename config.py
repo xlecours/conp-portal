@@ -16,12 +16,13 @@ class Config(object):
     the CONP Portal. Ideally, variables such as secret keys and such should
     be set by environment variable rather than explicitely here.
     """
+
+    FLASK_ENV = os.environ.get('FLASK_ENV')
     SECRET_KEY = os.environ.get('SECRET_KEY') or "conp-secret-key-for-here"
     DATA_PATH = os.environ.get('DATA_PATH') or os.path.join(
         basedir, "app/static/data")
     DATASET_CACHE_PATH = os.environ.get('DATASET_CACHE_PATH') or os.path.join(
         basedir, "app/static/data/.cache/conp-dataset")
-    DATASET_CACHE_MAX_SIZE = os.environ.get('DATASET_CACHE_MAX_SIZE') or 0
     SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get(
         'SQLALCHEMY_TRACK_MODIFICATIONS') or False
 
@@ -33,8 +34,8 @@ class Config(object):
     MAIL_DEFAULT_SENDER = '"CONP-PCNO Portal" <shawntbrown@gmail.com>'
     ADMINS = [os.environ.get('ADMIN_EMAIL')] or ['conp-test@mailinator.com']
     LOG_TO_STDOUT = True
-    # Flask-User Settings
 
+    # Flask-User Settings
     USER_APP_NAME = "CONP-PCNO Data Portal"
     USER_ENABLE_CHANGE_PASSWORD = True
     USER_ENABLE_CHANGE_USERNAME = False
@@ -71,17 +72,24 @@ class Config(object):
     # Matomo
     MATOMO_SERVER_URL = os.environ.get("MATOMO_SERVER_URL")
     MATOMO_SITE_ID = os.environ.get("MATOMO_SITE_ID", "2")
+    MATOMO_TOKEN_AUTH = os.environ.get("MATOMO_TOKEN_AUTH")
+
+    # Nexus SPARQL endpoint
+    # TODO remove hardcoded url
+    NEXUS_SPARQL_ENDPOINT = os.environ.get(
+        "NEXUS_SPARQL_ENDPOINT",
+        "https://reservoir.global/v1/views/Public/CONP/graph/sparql"
+    )
 
     # Dataset cache
     DATASET_CACHE_PATH = os.environ.get("DATASET_CACHE_PATH")
-    DATASET_CACHE_MAX_SIZE = os.environ.get("DATASET_CACHE_MAX_SIZE")
 
 
 class DevelopmentConfig(Config):
     """This is the config for Development"""
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = (os.environ.get('DATABASE_URL') or
-                               "sqlite:///{}".format(os.path.join(basedir, "app.db")))
+    SQLALCHEMY_DATABASE_URI = (os.environ.get('DATABASE_URL')
+                               or "sqlite:///{}".format(os.path.join(basedir, "app.db")))
 
 
 class TestingConfig(Config):
@@ -96,5 +104,5 @@ class ProductionConfig(Config):
     """This is for when we are full on production, needs to be elaborated"""
     DEBUG = False
     TESTING = False
-    SQLALCHEMY_DATABASE_URI = (os.environ.get('DATABASE_URL') or
-                               "sqlite:///{}".format(os.path.join(basedir, "app.db")))
+    SQLALCHEMY_DATABASE_URI = (os.environ.get('DATABASE_URL')
+                               or "sqlite:///{}".format(os.path.join(basedir, "app.db")))
